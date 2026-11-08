@@ -7,6 +7,7 @@ Chalk white, ink black and one hit of acid green. Swiss-style type, a pinned sid
 ## Stack
 
 - Plain HTML, CSS and JavaScript. No build step, no npm.
+- GSAP 3.12.5 + ScrollTrigger (cdnjs) for the pinned gallery and line reveals; Lenis 1.1.13 (jsDelivr) for smooth scroll.
 - Fonts: Archivo, Space Grotesk and Space Mono (Google Fonts). Anton and Cormorant Garamond appear only inside project cards.
 - Hosting: GitHub Pages.
 
@@ -15,7 +16,8 @@ Chalk white, ink black and one hit of acid green. Swiss-style type, a pinned sid
 ```
 index.html      page markup
 css/style.css   tokens, layout, sections, motion
-js/main.js      clock, greeting, scroll reveals, pinned gallery
+js/main.js      preloader, clock, greeting, cursor, magnetic links,
+                Lenis, pinned gallery, line reveals, live previews
 ```
 
 ## Run locally
@@ -41,6 +43,18 @@ The site goes live at `https://eldri06.github.io/eldrian-portfolio/`.
 - [ ] DenGuard link once the repo or demo is public
 - [ ] Real screenshots per project, if wanted later
 
+## Features
+
+- 000 to 100 preloader that wipes upward
+- Live Philippine time and a time-of-day greeting
+- Custom cursor (acid dot + ink ring) and magnetic nav, footer link and button
+- Two marquee rows running opposite ways
+- Pinned sideways work gallery with motif drift on each card
+- About lead that reveals line by line
+- Giant LET'S TALK link that fills acid green on hover
+- Grain overlay and a header that frosts once you scroll
+- Live preview on hover: add `data-preview="https://..."` to a card link to show its live site
+
 ## Motion and accessibility
 
 - Desktop with a mouse: the work gallery pins and scrolls sideways as you scroll down.
@@ -50,4 +64,5 @@ The site goes live at `https://eldri06.github.io/eldrian-portfolio/`.
 
 ## Design credit
 
-Layout inspired by [Akshay's portfolio](https://github.com/akshay-th/akshay-folio).
+Design and interactions inspired by [Akshay's portfolio](https://github.com/akshay-th/akshay-folio).
+All code here is written from scratch for this site; none of it is copied from that repo.
