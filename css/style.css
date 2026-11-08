@@ -1602,3 +1602,71 @@ html.lenis body {
 .world-ade {
   color: var(--ink);
 }
+
+/* ---------- Work: placeholder screenshots ---------- */
+
+.card__shot {
+  position: absolute;
+  right: 6%;
+  top: 20%;
+  width: 64%;
+  height: auto;
+  box-shadow: 8px 8px 0 0 var(--on-acid);
+  transform: rotate(-2deg);
+  transition: transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out);
+}
+
+.world-ade .card__shot,
+.world-self .card__shot {
+  box-shadow: 8px 8px 0 0 rgba(18, 18, 17, 0.9);
+}
+
+.world-denguard .card__shot,
+.world-self .card__shot {
+  box-shadow: 8px 8px 0 0 var(--acid);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card__link:hover .card__shot {
+    transform: rotate(0deg) translateY(-8px);
+  }
+}
+
+.card__status {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  background: var(--acid);
+  color: var(--on-acid);
+  outline: 1.5px solid var(--on-acid);
+  outline-offset: -1.5px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.card__status::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--on-acid);
+  animation: status-blink 1.4s ease-in-out infinite;
+}
+
+@keyframes status-blink {
+  50% { opacity: 0.2; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card__status::before {
+    animation: none;
+  }
+}

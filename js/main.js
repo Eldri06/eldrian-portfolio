@@ -443,7 +443,7 @@
     // Each card's motif drifts against the slide for a bit of depth.
     work.querySelectorAll(".card__world").forEach(function (world) {
       gsap.fromTo(
-        world.children,
+        world.querySelectorAll(":scope > :not(.card__status):not(.card__shot):not(.card__preview)"),
         { xPercent: 6 },
         {
           xPercent: -6,
