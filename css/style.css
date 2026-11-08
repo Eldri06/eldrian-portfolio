@@ -1105,3 +1105,26 @@ main {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.07  0 0 0 0 0.07  0 0 0 0 0.07  0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='128' height='128' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 128px 128px;
 }
+
+/* ---------- Marquee, reversed acid row ---------- */
+
+.marquee--reverse {
+  background: var(--acid);
+  color: var(--ink);
+  border-top: 0;
+}
+
+.marquee--reverse .marquee__track {
+  animation-direction: reverse;
+  animation-duration: 34s;
+  padding: 14px 0;
+  font-size: 1.125rem;
+}
+
+.marquee--reverse .marquee__track i {
+  color: var(--ink);
+}
+
+.marquee--reverse .marquee__track span {
+  padding-right: 22px;
+}
