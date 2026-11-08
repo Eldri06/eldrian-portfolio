@@ -105,3 +105,144 @@ a {
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
+
+/* ---------- Header ---------- */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(241, 240, 235, 0.86);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  min-height: 64px;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.25rem;
+  letter-spacing: -0.03em;
+  text-decoration: none;
+}
+
+.header__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 28px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.header__links a {
+  padding: 14px 0;
+  text-decoration: none;
+  background-image: linear-gradient(var(--acid), var(--acid));
+  background-size: 0% 6px;
+  background-position: 0 70%;
+  background-repeat: no-repeat;
+  transition: background-size 250ms var(--ease-out);
+}
+
+.header__links a:hover {
+  background-size: 100% 6px;
+}
+
+.header__time {
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: relative;
+  padding-top: 72px;
+  padding-bottom: 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.hero__rules {
+  position: absolute;
+  inset: 0 var(--pad-x);
+  display: flex;
+  justify-content: space-evenly;
+  pointer-events: none;
+}
+
+.hero__rules span {
+  width: 1px;
+  background: rgba(18, 18, 17, 0.08);
+}
+
+.hero__greeting,
+.hero__title,
+.hero__meta {
+  position: relative;
+}
+
+.hero__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(3.2rem, 11vw, 10.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+
+.hero__title .line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.04em;
+}
+
+.hero__title .line > span {
+  display: inline-block;
+}
+
+.hero__title .mark {
+  padding: 0 0.08em;
+}
+
+.hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--ink);
+  color: var(--ink);
+}
+
+.hero__meta span + span {
+  color: var(--muted);
+}
+
+.hero__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero__square {
+  width: 10px;
+  height: 10px;
+  background: var(--acid);
+  outline: 1px solid var(--ink);
+}
