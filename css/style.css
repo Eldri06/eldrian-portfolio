@@ -2616,3 +2616,34 @@ html.lenis body {
     max-width: min(75rem, calc((100svh - 360px) * 16 / 9 + 124px));
   }
 }
+
+/* Hero title: each letter splits into halves on hover (set up in main.js). */
+.hero__title .ch {
+  display: inline-grid;
+}
+
+.hero__title .ch__t,
+.hero__title .ch__b {
+  grid-area: 1 / 1;
+  display: block;
+  transition: transform 300ms var(--ease-out);
+}
+
+.hero__title .ch__t {
+  clip-path: inset(-30% -30% calc(50% - 0.6px) -30%);
+}
+
+.hero__title .ch__b {
+  clip-path: inset(calc(50% - 0.6px) -30% -30% -30%);
+}
+
+.hero__title .ch[data-d="0"] .ch__t { transform: translateY(-0.08em); }
+.hero__title .ch[data-d="0"] .ch__b { transform: translateY(0.08em); }
+.hero__title .ch[data-d="1"] .ch__t { transform: translateY(-0.045em); }
+.hero__title .ch[data-d="1"] .ch__b { transform: translateY(0.045em); }
+.hero__title .ch[data-d="2"] .ch__t { transform: translateY(-0.015em); }
+.hero__title .ch[data-d="2"] .ch__b { transform: translateY(0.015em); }
+
+.hero__title.is-settled .line {
+  overflow: visible;
+}

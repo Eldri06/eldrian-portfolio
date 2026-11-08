@@ -279,6 +279,77 @@
     })();
   }
 
+  /* ---------- Hero title: letters split open under the mouse ----------
+     Each letter is cut into a top and bottom half. The letter under the
+     pointer opens a little and its neighbours follow, less each step. */
+  var heroTitle = document.querySelector(".hero__title");
+  if (heroTitle && finePointer.matches && !reduceMotion.matches) {
+    heroTitle.setAttribute("aria-label", heroTitle.textContent.replace(/\s+/g, " ").trim());
+    var heroLines = [];
+    heroTitle.querySelectorAll(".line > span").forEach(function (holder) {
+      var letters = [];
+      var text = holder.textContent;
+      holder.textContent = "";
+      holder.setAttribute("aria-hidden", "true");
+      for (var i = 0; i < text.length; i++) {
+        var c = text[i];
+        if (c === " ") { holder.appendChild(document.createTextNode(" ")); continue; }
+        var ch = document.createElement("span");
+        ch.className = "ch";
+        ch.innerHTML = '<span class="ch__t"></span><span class="ch__b"></span>';
+        ch.firstChild.textContent = c;
+        ch.lastChild.textContent = c;
+        holder.appendChild(ch);
+        letters.push(ch);
+      }
+      heroLines.push({ el: holder.parentNode, letters: letters });
+    });
+
+    // The lines clip their content for the intro rise; open them up after.
+    var settle = function () { heroTitle.classList.add("is-settled"); };
+    var lastLine = heroTitle.querySelector(".line:last-child > span");
+    if (lastLine) lastLine.addEventListener("animationend", settle, { once: true });
+    setTimeout(settle, 4500);
+
+    var active = null;
+    var setActive = function (line, idx) {
+      var key = line ? heroLines.indexOf(line) + ":" + idx : null;
+      if (key === active) return;
+      active = key;
+      heroLines.forEach(function (l) {
+        l.letters.forEach(function (ch, i) {
+          var d = l === line ? Math.abs(i - idx) : 9;
+          if (d <= 2) ch.setAttribute("data-d", d);
+          else ch.removeAttribute("data-d");
+        });
+      });
+    };
+
+    var heroPending = false, hx = 0, hy = 0;
+    var pickLetter = function () {
+      heroPending = false;
+      for (var n = 0; n < heroLines.length; n++) {
+        var l = heroLines[n];
+        var r = l.el.getBoundingClientRect();
+        if (hy < r.top || hy > r.bottom) continue;
+        for (var i = 0; i < l.letters.length; i++) {
+          var b = l.letters[i].getBoundingClientRect();
+          if (hx >= b.left && hx <= b.right && hy >= b.top && hy <= b.bottom) {
+            setActive(l, i);
+            return;
+          }
+        }
+      }
+      setActive(null);
+    };
+    var heroSection = heroTitle.closest(".hero") || document;
+    heroSection.addEventListener("pointermove", function (e) {
+      hx = e.clientX; hy = e.clientY;
+      if (!heroPending) { heroPending = true; requestAnimationFrame(pickLetter); }
+    });
+    heroSection.addEventListener("pointerleave", function () { setActive(null); });
+  }
+
   /* ---------- Magnetic links ---------- */
   if (finePointer.matches && !reduceMotion.matches) {
     document.querySelectorAll("[data-magnetic]").forEach(function (el) {
