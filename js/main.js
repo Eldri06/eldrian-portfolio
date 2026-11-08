@@ -198,66 +198,84 @@
     });
   }
 
-  /* ---------- Pinned horizontal gallery (desktop only) ---------- */
+  /* ---------- Smooth scroll (Lenis) driven by the GSAP ticker ---------- */
+  var hasGsap = typeof window.gsap !== "undefined" && typeof window.ScrollTrigger !== "undefined";
+  var lenis = null;
+
+  if (hasGsap) {
+    window.gsap.registerPlugin(window.ScrollTrigger);
+  }
+
+  if (hasGsap && typeof window.Lenis !== "undefined" && !reduceMotion.matches) {
+    lenis = new window.Lenis({ duration: 1.1 });
+    lenis.on("scroll", window.ScrollTrigger.update);
+    window.gsap.ticker.add(function (time) {
+      lenis.raf(time * 1000);
+    });
+    window.gsap.ticker.lagSmoothing(0);
+  }
+
+  // In-page links: let Lenis glide there, offset by the fixed header.
+  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    link.addEventListener("click", function (e) {
+      var id = link.getAttribute("href");
+      if (id.length < 2) return;
+      var target = document.querySelector(id);
+      if (!target) return;
+      if (lenis) {
+        e.preventDefault();
+        lenis.scrollTo(id === "#top" ? 0 : target, { offset: -64 });
+      }
+    });
+  });
+
+  /* ---------- Pinned horizontal gallery (desktop, GSAP) ---------- */
   var work = document.querySelector(".work");
-  var sticky = work && work.querySelector(".work__sticky");
   var track = work && work.querySelector(".work__track");
   var wide = window.matchMedia("(min-width: 900px) and (pointer: fine)");
 
-  var distance = 0;
-  var running = false;
-  var inView = false;
+  if (work && track && hasGsap && wide.matches && !reduceMotion.matches) {
+    var gsap = window.gsap;
+    work.classList.add("is-pinned");
 
-  function measure() {
-    if (!work.classList.contains("is-pinned")) return;
-    distance = Math.max(0, track.scrollWidth - window.innerWidth);
-    work.style.height = sticky.offsetHeight + distance + "px";
-  }
+    var distance = function () {
+      return Math.max(0, track.scrollWidth - window.innerWidth);
+    };
 
-  function frame() {
-    if (!inView) {
-      running = false;
-      return;
-    }
-    var rect = work.getBoundingClientRect();
-    var total = work.offsetHeight - sticky.offsetHeight;
-    var progress = total > 0 ? Math.min(1, Math.max(0, -rect.top / total)) : 0;
-    track.style.transform = "translate3d(" + -progress * distance + "px, 0, 0)";
-    requestAnimationFrame(frame);
-  }
-
-  function startLoop() {
-    if (!running) {
-      running = true;
-      requestAnimationFrame(frame);
-    }
-  }
-
-  function setPinned() {
-    var shouldPin = wide.matches && !reduceMotion.matches;
-    work.classList.toggle("is-pinned", shouldPin);
-    if (shouldPin) {
-      measure();
-    } else {
-      work.style.height = "";
-      track.style.transform = "";
-    }
-  }
-
-  if (work && sticky && track && "IntersectionObserver" in window) {
-    var pinObs = new IntersectionObserver(function (entries) {
-      inView = entries[0].isIntersecting;
-      if (inView && work.classList.contains("is-pinned")) startLoop();
+    var slide = gsap.to(track, {
+      x: function () { return -distance(); },
+      ease: "none",
+      scrollTrigger: {
+        trigger: work,
+        start: "top top",
+        end: function () { return "+=" + distance(); },
+        pin: true,
+        scrub: 1,
+        invalidateOnRefresh: true
+      }
     });
-    pinObs.observe(work);
 
-    setPinned();
-    window.addEventListener("resize", measure);
-    if (wide.addEventListener) {
-      wide.addEventListener("change", setPinned);
-      reduceMotion.addEventListener("change", setPinned);
+    // Each card's motif drifts against the slide for a bit of depth.
+    work.querySelectorAll(".card__world").forEach(function (world) {
+      gsap.fromTo(
+        world.children,
+        { xPercent: 6 },
+        {
+          xPercent: -6,
+          ease: "none",
+          scrollTrigger: {
+            trigger: world,
+            containerAnimation: slide,
+            start: "left right",
+            end: "right left",
+            scrub: true
+          }
+        }
+      );
+    });
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { window.ScrollTrigger.refresh(); });
     }
-    // Fonts change card widths, so measure again once they load.
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
   }
 })();

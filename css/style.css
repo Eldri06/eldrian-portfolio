@@ -368,15 +368,14 @@ main {
   padding: 8px var(--pad-x) 24px;
 }
 
-/* Pinned mode, turned on by JS on wide screens */
+/* Pinned mode, turned on by JS (GSAP) on wide screens */
 .work.is-pinned {
   padding: 0;
 }
 
 .work.is-pinned .work__sticky {
-  position: sticky;
-  top: 64px;
-  height: calc(100vh - 64px);
+  height: 100vh;
+  padding-top: 64px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -393,6 +392,10 @@ main {
 
 .work.is-pinned .work__track {
   will-change: transform;
+}
+
+.work.is-pinned .card {
+  scroll-snap-align: none;
 }
 
 /* Cards */
@@ -1127,4 +1130,19 @@ main {
 
 .marquee--reverse .marquee__track span {
   padding-right: 22px;
+}
+
+/* ---------- Lenis ---------- */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
