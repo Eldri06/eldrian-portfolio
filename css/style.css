@@ -1220,17 +1220,35 @@ html.lenis body {
 
 .hero__globe {
   position: absolute;
-  top: 24px;
-  right: calc(var(--pad-x) * -1 - 6vw);
-  width: min(60vw, 860px);
+  top: 8px;
+  right: calc(var(--pad-x) * -1 - 4vw);
+  width: min(62vw, 900px);
   aspect-ratio: 1;
   pointer-events: none;
+  touch-action: pan-y;
   opacity: 0;
   transition: opacity 1.2s var(--ease-out);
 }
 
 .hero__globe.is-live {
   opacity: 1;
+  pointer-events: auto;
+  cursor: grab;
+}
+
+.hero__globe.is-dragging {
+  cursor: grabbing;
+}
+
+/* keep the headline readable and clickable above the globe */
+.hero__title,
+.hero__meta {
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero__meta a {
+  pointer-events: auto;
 }
 
 .hero__globe canvas {
@@ -1269,4 +1287,55 @@ html.lenis body {
   display: block;
   width: 100% !important;
   height: 100% !important;
+}
+
+/* ---------- 3D cubes (About) ---------- */
+
+.about__cubes {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.8s var(--ease-out);
+}
+
+.about__cubes.is-live {
+  opacity: 1;
+}
+
+.about__cubes canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.about__art:has(.about__cubes.is-live) .sq,
+.about__art:has(.about__cubes.is-live) .frame {
+  opacity: 0;
+}
+
+.about__art .sq,
+.about__art .frame {
+  transition: opacity 0.6s ease;
+}
+
+/* ---------- Card tilt glare ---------- */
+
+.card__world::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, 0.22), transparent 55%);
+  opacity: 0;
+  transition: opacity 250ms ease;
+  mix-blend-mode: soft-light;
+}
+
+.card__link.is-tilting .card__world::after {
+  opacity: 1;
+}
+
+.card__link.is-tilting .card__world {
+  transition: none;
+  box-shadow: 0 24px 40px -24px rgba(18, 18, 17, 0.45);
 }
