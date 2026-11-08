@@ -1428,3 +1428,52 @@ html.lenis body {
   transition: none;
   box-shadow: 0 24px 40px -24px rgba(18, 18, 17, 0.45);
 }
+
+/* ---------- Logo mark: a small 3D cube ---------- */
+
+.wordmark,
+.preloader__mark,
+.world-self__mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: uppercase;
+}
+
+.logo-mark {
+  position: relative;
+  flex: 0 0 auto;
+  width: 0.9em;
+  height: 0.9em;
+  transform-style: preserve-3d;
+  transform: rotateX(-24deg) rotateY(38deg);
+  transition: transform 600ms var(--ease-out);
+}
+
+.logo-mark::before,
+.logo-mark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--acid);
+  outline: 1.5px solid var(--ink);
+  outline-offset: -1.5px;
+}
+
+.logo-mark::before {
+  transform: translateZ(0.45em);
+}
+
+.logo-mark::after {
+  background: var(--ink);
+  transform: rotateY(90deg) translateZ(0.45em);
+}
+
+.wordmark:hover .logo-mark {
+  transform: rotateX(-24deg) rotateY(218deg);
+}
+
+.preloader .logo-mark::after,
+.world-self__mark .logo-mark::after {
+  background: var(--chalk);
+}
