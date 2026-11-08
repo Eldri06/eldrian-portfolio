@@ -472,6 +472,15 @@
   }
 
   // In-page links: let Lenis glide there, offset by the fixed header.
+  // The header is taller on phones (two rows), so measure it.
+  var siteHeader = document.querySelector(".header");
+  var headerHeight = function () { return siteHeader ? siteHeader.offsetHeight : 64; };
+  var syncHeaderHeight = function () {
+    document.documentElement.style.setProperty("--header-h", headerHeight() + "px");
+  };
+  syncHeaderHeight();
+  window.addEventListener("resize", syncHeaderHeight);
+
   document.querySelectorAll('a[href^="#"]').forEach(function (link) {
     link.addEventListener("click", function (e) {
       var id = link.getAttribute("href");
@@ -480,7 +489,7 @@
       if (!target) return;
       if (lenis) {
         e.preventDefault();
-        lenis.scrollTo(id === "#top" ? 0 : target, { offset: target.hasAttribute("data-anchor-flush") ? 0 : -64 });
+        lenis.scrollTo(id === "#top" ? 0 : target, { offset: target.hasAttribute("data-anchor-flush") ? 0 : -headerHeight() });
       }
     });
   });

@@ -1660,7 +1660,11 @@ html.lenis body {
 @media (max-width: 640px) {
   .header__inner {
     position: relative;
-    padding-right: calc(var(--pad-x) + 40px);
+    row-gap: 0;
+  }
+
+  .wordmark {
+    margin-right: 48px;
   }
 
   .theme-toggle {
@@ -1671,13 +1675,17 @@ html.lenis body {
   }
 
   .header__links {
-    gap: 2px 16px;
+    width: 100%;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 12px;
     font-size: 0.6875rem;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
   }
 
   .header__links a {
     padding: 10px 0;
+    white-space: nowrap;
   }
 }
 
@@ -2646,4 +2654,90 @@ html.lenis body {
 
 .hero__title.is-settled .line {
   overflow: visible;
+}
+
+/* ---------- Responsive fixes ---------- */
+
+/* iOS ignores overflow on body alone, so the globe's overhang widened the
+   page on iPads. Clip sideways overflow at the root and on the hero. */
+html,
+body {
+  overflow-x: clip;
+}
+
+.hero {
+  overflow-x: clip;
+}
+
+/* Anchor jumps without Lenis (touch devices) stop below the fixed header. */
+section[id] {
+  scroll-margin-top: var(--header-h, 64px);
+}
+
+section[id][data-anchor-flush] {
+  scroll-margin-top: 0;
+}
+
+@media (max-width: 640px) {
+  main {
+    padding-top: var(--header-h, 80px);
+  }
+
+  .hero__title {
+    font-size: clamp(2rem, 10.4vw, 10.5rem);
+  }
+
+  .footer__talk {
+    font-size: clamp(2.5rem, 12vw, 11.5rem);
+  }
+
+  .footer__inner {
+    padding-top: 64px;
+    gap: 48px;
+  }
+
+  /* Certificate titles wrap to two lines instead of cutting off. */
+  .mpc-title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    white-space: normal;
+    line-height: 1.15;
+  }
+}
+
+@media (max-width: 380px) {
+  .wordmark {
+    font-size: 1.0625rem;
+    white-space: nowrap;
+  }
+}
+
+/* Phones: logo row matches the toggle's 44px height so the toggle sits
+   beside the name and never on top of the links row. */
+@media (max-width: 640px) {
+  .header__inner {
+    padding-top: 4px;
+  }
+
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .theme-toggle {
+    top: 4px;
+  }
+
+  .header__links a {
+    padding: 6px 0 10px;
+  }
+}
+
+@media (min-width: 421px) and (max-width: 640px) {
+  .header__links {
+    justify-content: flex-start;
+    gap: 28px;
+  }
 }
