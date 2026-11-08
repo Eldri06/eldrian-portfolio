@@ -339,6 +339,7 @@ a {
 .work__viewport {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--pad-x);
   scrollbar-width: thin;
   scrollbar-color: var(--ink) transparent;
 }
@@ -365,6 +366,10 @@ a {
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
+}
+
+.work.is-pinned .work__sticky > .wrap {
+  width: 100%;
 }
 
 .work.is-pinned .work__viewport {
