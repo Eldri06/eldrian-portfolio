@@ -1270,3 +1270,200 @@ html.lenis body {
   width: 100% !important;
   height: 100% !important;
 }
+
+/* ---------- Live GitHub stats ---------- */
+
+.gh {
+  padding-bottom: 104px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.gh__note {
+  margin: -16px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gh__live {
+  width: 10px;
+  height: 10px;
+  background: var(--chalk-2);
+  outline: 1px solid var(--ink);
+}
+
+.gh.is-live .gh__live {
+  background: var(--acid);
+}
+
+.gh__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 56px;
+  align-items: start;
+}
+
+.gh__numbers {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px 24px;
+}
+
+.gh__numbers div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--ink);
+}
+
+.gh__numbers dd {
+  order: -1;
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.5rem, 4.5vw, 3.75rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.gh__last {
+  grid-column: 1 / -1;
+}
+
+.gh__last dd {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 16px;
+}
+
+.gh__last a {
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-underline-offset: 4px;
+}
+
+.gh__langs {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--ink);
+}
+
+.gh__bars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gh__bar {
+  position: relative;
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr) 6.5rem;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0;
+}
+
+.gh__name {
+  font-weight: 500;
+}
+
+.gh__track {
+  height: 20px;
+  display: block;
+}
+
+.gh__fill {
+  display: block;
+  height: 100%;
+  width: var(--w, 0%);
+  background: var(--ink);
+  transform-origin: left;
+  transition: background-color 150ms ease;
+}
+
+.gh__count {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--muted);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hover/focus: highlight the bar and show the share */
+.gh__share {
+  display: none;
+}
+
+.gh__bar:hover .gh__fill,
+.gh__bar:focus-within .gh__fill {
+  background: var(--acid);
+  outline: 1px solid var(--ink);
+  outline-offset: -1px;
+}
+
+.gh__bar:hover .gh__share,
+.gh__bar:focus-within .gh__share {
+  display: inline;
+}
+
+.gh__bar:hover .gh__plain,
+.gh__bar:focus-within .gh__plain {
+  display: none;
+}
+
+.gh__bar.is-skeleton .gh__fill {
+  background: var(--chalk-2);
+}
+
+.gh__bar.is-skeleton .gh__name,
+.gh__bar.is-skeleton .gh__count {
+  background: var(--chalk-2);
+  height: 1em;
+}
+
+.can-reveal .gh.is-live .gh__fill {
+  animation: grow 0.9s var(--ease-out) both;
+}
+
+.gh__bar:nth-child(2) .gh__fill { animation-delay: 60ms; }
+.gh__bar:nth-child(3) .gh__fill { animation-delay: 120ms; }
+.gh__bar:nth-child(4) .gh__fill { animation-delay: 180ms; }
+.gh__bar:nth-child(5) .gh__fill { animation-delay: 240ms; }
+.gh__bar:nth-child(6) .gh__fill { animation-delay: 300ms; }
+
+@keyframes grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.gh__error a {
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 900px) {
+  .gh__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .gh__bar {
+    grid-template-columns: 5.5rem minmax(0, 1fr) 4.5rem;
+    gap: 10px;
+  }
+}
