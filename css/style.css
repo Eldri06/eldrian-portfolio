@@ -212,7 +212,7 @@ main {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: clamp(3.2rem, 11vw, 10.5rem);
+  font-size: clamp(2.5rem, 11vw, 10.5rem);
   line-height: 0.92;
   letter-spacing: -0.035em;
   text-transform: uppercase;
