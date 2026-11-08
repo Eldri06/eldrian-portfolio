@@ -204,25 +204,16 @@ main {
 
 .hero__greeting,
 .hero__title,
-.hero__sub,
 .hero__meta {
   position: relative;
-}
-
-.hero__sub {
-  margin: 0;
-  max-width: 34ch;
-  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
-  line-height: 1.4;
-  color: var(--ink-2);
 }
 
 .hero__title {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: clamp(3.4rem, 14vw, 13.5rem);
-  line-height: 0.9;
+  font-size: clamp(3.2rem, 11vw, 10.5rem);
+  line-height: 0.92;
   letter-spacing: -0.035em;
   text-transform: uppercase;
 }
@@ -926,7 +917,6 @@ main {
 .hero__title .line:nth-child(4) > span { animation-delay: 270ms; }
 
 .hero__greeting,
-.hero__sub,
 .hero__meta {
   animation: fade-up 0.8s var(--ease-out) 450ms both;
 }
@@ -973,7 +963,6 @@ main {
 
   .hero__title .line > span,
   .hero__greeting,
-  .hero__sub,
   .hero__meta {
     animation: none;
   }
@@ -1047,7 +1036,6 @@ main {
 /* Hero waits for the preloader */
 .js:not(.is-ready) .hero__title .line > span,
 .js:not(.is-ready) .hero__greeting,
-.js:not(.is-ready) .hero__sub,
 .js:not(.is-ready) .hero__meta {
   animation-play-state: paused;
 }
