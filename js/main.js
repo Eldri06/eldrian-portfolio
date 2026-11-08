@@ -158,6 +158,52 @@
     });
   }
 
+  /* ---------- 3D tilt on project cards ---------- */
+  if (finePointer.matches && !reduceMotion.matches) {
+    document.querySelectorAll(".card__link").forEach(function (link) {
+      var world = link.querySelector(".card__world");
+      if (!world) return;
+      var rx = 0, ry = 0, trx = 0, try_ = 0, lift = 0, tlift = 0, raf = null;
+
+      function draw() {
+        rx = lerp(rx, trx, 0.14);
+        ry = lerp(ry, try_, 0.14);
+        lift = lerp(lift, tlift, 0.14);
+        world.style.transform =
+          "perspective(900px) translateY(" + (-6 * lift).toFixed(2) + "px) rotateX(" + rx.toFixed(2) + "deg) rotateY(" + ry.toFixed(2) + "deg)";
+        world.style.setProperty("--gx", (50 + ry * 4).toFixed(1) + "%");
+        world.style.setProperty("--gy", (50 - rx * 4).toFixed(1) + "%");
+        if (Math.abs(rx - trx) > 0.01 || Math.abs(ry - try_) > 0.01 || Math.abs(lift - tlift) > 0.01) {
+          raf = requestAnimationFrame(draw);
+        } else {
+          raf = null;
+          if (tlift === 0) world.style.transform = "";
+        }
+      }
+      function kick() {
+        if (!raf) raf = requestAnimationFrame(draw);
+      }
+
+      link.addEventListener("mousemove", function (e) {
+        var r = world.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width - 0.5;
+        var py = (e.clientY - r.top) / r.height - 0.5;
+        try_ = px * 14;
+        trx = -py * 10;
+        tlift = 1;
+        link.classList.add("is-tilting");
+        kick();
+      });
+      link.addEventListener("mouseleave", function () {
+        trx = 0;
+        try_ = 0;
+        tlift = 0;
+        link.classList.remove("is-tilting");
+        kick();
+      });
+    });
+  }
+
   /* ---------- Reveal on scroll ---------- */
   var revealables = document.querySelectorAll("[data-reveal], .section-head");
 
