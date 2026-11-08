@@ -278,4 +278,122 @@
       document.fonts.ready.then(function () { window.ScrollTrigger.refresh(); });
     }
   }
+
+  /* ---------- About lead: reveal line by line ---------- */
+  function splitLines(el) {
+    var original = el.innerHTML;
+    var words = [];
+
+    // Collect words, remembering which ones sit inside a highlight.
+    el.childNodes.forEach(function (node) {
+      var isMark = node.nodeType === 1 && node.classList.contains("mark");
+      var text = node.textContent;
+      text.split(/(\s+)/).forEach(function (part) {
+        if (part === "") return;
+        words.push({ text: part, mark: isMark, space: /^\s+$/.test(part) });
+      });
+    });
+
+    el.innerHTML = "";
+    var spans = words.map(function (w) {
+      if (w.space) {
+        var sp = document.createTextNode(" ");
+        el.appendChild(sp);
+        return null;
+      }
+      var span = document.createElement("span");
+      span.textContent = w.text;
+      if (w.mark) span.className = "mark";
+      el.appendChild(span);
+      return span;
+    });
+
+    // Group words by their rendered line.
+    var lines = [];
+    var lastTop = null;
+    spans.forEach(function (span) {
+      if (!span) return;
+      var top = span.offsetTop;
+      if (lastTop === null || Math.abs(top - lastTop) > 4) {
+        lines.push([]);
+        lastTop = top;
+      }
+      lines[lines.length - 1].push(span);
+    });
+
+    el.innerHTML = "";
+    var inners = lines.map(function (lineSpans) {
+      var outer = document.createElement("span");
+      outer.className = "split-line";
+      var inner = document.createElement("span");
+      lineSpans.forEach(function (span, i) {
+        if (i > 0) inner.appendChild(document.createTextNode(" "));
+        inner.appendChild(span);
+      });
+      outer.appendChild(inner);
+      el.appendChild(outer);
+      return inner;
+    });
+
+    return { inners: inners, restore: function () { el.innerHTML = original; } };
+  }
+
+  var lead = document.querySelector("[data-lines]");
+  if (lead && hasGsap && !reduceMotion.matches) {
+    var startSplit = function () {
+      var split = splitLines(lead);
+      window.gsap.from(split.inners, {
+        yPercent: 105,
+        duration: 0.9,
+        ease: "power4.out",
+        stagger: 0.08,
+        scrollTrigger: { trigger: lead, start: "top 85%", once: true },
+        onComplete: split.restore
+      });
+    };
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(startSplit);
+    } else {
+      startSplit();
+    }
+  }
+
+  /* ---------- Live preview on hover (cards with data-preview="URL") ---------- */
+  if (finePointer.matches) {
+    document.querySelectorAll(".card__link[data-preview]").forEach(function (link) {
+      var url = link.getAttribute("data-preview");
+      var world = link.querySelector(".card__world");
+      if (!url || !world) return;
+      var box = null;
+
+      link.addEventListener("mouseenter", function () {
+        if (!box) {
+          box = document.createElement("div");
+          box.className = "card__preview";
+          var frame = document.createElement("iframe");
+          frame.src = url;
+          frame.loading = "lazy";
+          frame.tabIndex = -1;
+          frame.title = "Live preview";
+          frame.setAttribute("aria-hidden", "true");
+          var badge = document.createElement("span");
+          badge.className = "card__badge";
+          badge.textContent = "LIVE";
+          box.appendChild(frame);
+          box.appendChild(badge);
+          world.appendChild(box);
+          var fit = function () {
+            frame.style.transform = "scale(" + world.clientWidth / 1440 + ")";
+          };
+          fit();
+          window.addEventListener("resize", fit);
+        }
+        requestAnimationFrame(function () { box.classList.add("is-on"); });
+      });
+
+      link.addEventListener("mouseleave", function () {
+        if (box) box.classList.remove("is-on");
+      });
+    });
+  }
 })();
