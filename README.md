@@ -8,7 +8,7 @@ Chalk white, ink black and one hit of acid green. Swiss-style type, a pinned sid
 
 - Plain HTML, CSS and JavaScript. No build step, no npm.
 - GSAP 3.12.5 + ScrollTrigger (cdnjs) for the pinned gallery and line reveals; Lenis 1.1.13 (jsDelivr) for smooth scroll.
-- Fonts: Archivo, Space Grotesk and Space Mono (Google Fonts). Anton and Cormorant Garamond appear only inside project cards.
+- Fonts: Archivo (display), Geist and Geist Mono (Google Fonts). Anton and Cormorant Garamond appear only inside project cards.
 - Hosting: GitHub Pages.
 
 ## Files
