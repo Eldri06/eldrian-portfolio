@@ -55,6 +55,7 @@
       <div class="header__links">
         <a href="#work" data-magnetic>Work</a>
         <a href="#about" data-magnetic>About</a>
+        <a href="#certificates" data-magnetic>Certificates</a>
         <a href="#contact" data-magnetic>Contact</a>
         <span class="header__time">PH <span data-clock>--:--:--</span></span>
         <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode" aria-pressed="false">
@@ -222,7 +223,47 @@
         <div><dt class="label">Best Website, Best Presenter</dt><dd>02</dd></div>
       </dl>
     </section>
+
+    <section class="certs" id="certificates" aria-labelledby="certs-title" data-certs>
+      <div class="certs__bg" aria-hidden="true"></div>
+      <div class="wrap certs__inner">
+        <div class="certs__head">
+          <div class="certs__heading">
+            <span class="section-head__index">03</span>
+            <h2 class="certs__title" id="certs-title"><span>Certificates</span><span>&amp; awards</span></h2>
+            <span class="certs__bar" aria-hidden="true"></span>
+          </div>
+          <p class="label certs__page" data-certs-page aria-live="polite">[ Page 01 / 01 ]</p>
+        </div>
+
+        <div class="certs__body">
+          <ol class="certs__grid" data-certs-grid role="list"></ol>
+          <div class="certs__nav" role="group" aria-label="Certificate pages">
+            <button type="button" class="certs__navbtn" data-certs-prev aria-label="Previous certificates">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+              <span>Prev</span>
+            </button>
+            <button type="button" class="certs__navbtn" data-certs-next aria-label="Next certificates">
+              <span>Next</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <dialog class="cert-dialog" data-cert-dialog aria-labelledby="cert-dialog-title">
+    <div class="cert-dialog__head">
+      <div>
+        <p class="cert-dialog__title" id="cert-dialog-title" data-cert-dialog-title></p>
+        <p class="label cert-dialog__meta" data-cert-dialog-meta></p>
+      </div>
+      <button type="button" class="cert__btn" data-cert-dialog-close>Close ✕</button>
+    </div>
+    <img class="cert-dialog__img" data-cert-dialog-img src="" alt="">
+    <a class="cert__btn cert__btn--solid cert-dialog__open" data-cert-dialog-open href="#" target="_blank" rel="noopener">Open image ↗</a>
+  </dialog>
 
   <footer class="footer" id="contact" aria-label="Contact">
     <div class="footer__terrain" data-terrain aria-hidden="true"></div>
@@ -257,6 +298,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+  <script src="js/certificates.js" defer></script>
   <script src="js/main.js" defer></script>
   <script type="module" src="js/scenes.js"></script>
 </body>
