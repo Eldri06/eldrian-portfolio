@@ -182,8 +182,8 @@ function initGlobe(THREE, host) {
     globe.rotation.y = baseY + Math.sin(t * 0.12) * 0.7 + mx * 0.5;
     globe.rotation.x = 0.18 + my * 0.25;
     const p = (t * 0.6) % 1;
-    pulse.scale.setScalar(1 + p * 2.2);
-    pulse.material.opacity = 0.6 * (1 - p);
+    pulse.scale.setScalar(1 + p * 1.1);
+    pulse.material.opacity = 0.5 * (1 - p);
     renderer.render(scene, camera);
   });
 
@@ -195,10 +195,10 @@ function initGlobe(THREE, host) {
 function initTerrain(THREE, host, footer) {
   const renderer = makeRenderer(THREE, host);
   const scene = new THREE.Scene();
-  scene.fog = new THREE.Fog(INK, 4, 13);
+  scene.fog = new THREE.Fog(INK, 5, 17);
   const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 40);
-  camera.position.set(0, 2.1, 5.4);
-  camera.lookAt(0, -0.2, -2.5);
+  camera.position.set(0, 2.6, 5.2);
+  camera.lookAt(0, -0.6, -3);
 
   const COLS = 90;
   const ROWS = 44;
@@ -226,7 +226,7 @@ function initTerrain(THREE, host, footer) {
   const geo = new THREE.BufferGeometry();
   geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
   geo.setIndex(index);
-  const mat = new THREE.LineBasicMaterial({ color: ACID, transparent: true, opacity: 0.42, fog: true });
+  const mat = new THREE.LineBasicMaterial({ color: ACID, transparent: true, opacity: 0.75, fog: true });
   scene.add(new THREE.LineSegments(geo, mat));
 
   // Project the pointer onto the ground so the ripple sits under the mouse.
