@@ -33,15 +33,17 @@
     <div class="preloader__count" data-count>000</div>
   </div>
 
+  <div class="cursor" aria-hidden="true"><span class="cursor__ring"></span><span class="cursor__dot"></span></div>
+
   <a class="skip" href="#main">Skip to content</a>
 
   <header class="header">
     <nav class="wrap header__inner" aria-label="Main">
-      <a class="wordmark" href="#top">ELDRIAN©</a>
+      <a class="wordmark" href="#top" data-magnetic>ELDRIAN©</a>
       <div class="header__links">
-        <a href="#work">Work</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+        <a href="#work" data-magnetic>Work</a>
+        <a href="#about" data-magnetic>About</a>
+        <a href="#contact" data-magnetic>Contact</a>
         <span class="header__time">PH <span data-clock>--:--:--</span></span>
       </div>
     </nav>
@@ -51,7 +53,7 @@
     <section class="hero wrap" id="top">
       <div class="hero__rules" aria-hidden="true"><span></span><span></span><span></span></div>
       <p class="label hero__greeting" data-greeting>Welcome</p>
-      <h1 class="hero__title">
+      <h1 class="hero__title" data-hover="text">
         <span class="line"><span>Eldrian builds</span></span>
         <span class="line"><span class="mark">data-driven</span></span>
         <span class="line"><span>systems for</span></span>
@@ -160,7 +162,7 @@
 
       <div class="about__grid">
         <div class="about__main">
-          <p class="about__lead" data-reveal>I'm an IT student from Tagum City. I like taking messy data and turning it into systems that people actually use, from <span class="mark">shop dashboards</span> to dengue maps.</p>
+          <p class="about__lead" data-reveal data-hover="text">I'm an IT student from Tagum City. I like taking messy data and turning it into systems that people actually use, from <span class="mark">shop dashboards</span> to dengue maps.</p>
           <ol class="about__list" role="list">
             <li><span>01</span>Full-stack web apps</li>
             <li><span>02</span>Data analytics and dashboards</li>
@@ -186,7 +188,7 @@
   <footer class="footer" id="contact" aria-label="Contact">
     <div class="wrap footer__inner">
       <p class="label footer__kicker">Got a system that needs building?</p>
-      <a class="footer__talk" href="mailto:your-email@example.com"><span>Let's talk</span> <span class="footer__arrow">↗</span></a>
+      <a class="footer__talk" href="mailto:your-email@example.com" data-magnetic><span>Let's talk</span> <span class="footer__arrow">↗</span></a>
 
       <div class="footer__cols">
         <div class="footer__col">
@@ -201,7 +203,7 @@
         </div>
         <div class="footer__col">
           <span class="label">Download</span>
-          <a class="btn" href="#contact">Resume PDF</a>
+          <a class="btn" href="#contact" data-magnetic>Resume PDF</a>
         </div>
       </div>
 

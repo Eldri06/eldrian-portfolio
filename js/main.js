@@ -85,6 +85,90 @@
     requestAnimationFrame(step);
   }
 
+  /* ---------- Custom cursor (fine pointers only) ---------- */
+  var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+  var cursor = document.querySelector(".cursor");
+
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
+
+  if (cursor && finePointer.matches && !reduceMotion.matches) {
+    root.classList.add("has-cursor");
+    var dot = cursor.querySelector(".cursor__dot");
+    var ring = cursor.querySelector(".cursor__ring");
+    var mx = -100, my = -100;
+    var dx = mx, dy = my, rx = mx, ry = my;
+    var ringScale = 1, targetScale = 1;
+
+    window.addEventListener("mousemove", function (e) {
+      mx = e.clientX;
+      my = e.clientY;
+      cursor.classList.remove("is-hidden");
+    }, { passive: true });
+
+    document.addEventListener("mouseleave", function () {
+      cursor.classList.add("is-hidden");
+    });
+
+    document.addEventListener("mouseover", function (e) {
+      var el = e.target.closest ? e.target.closest("a, button, [data-hover]") : null;
+      var isText = !!(el && el.getAttribute("data-hover") === "text");
+      targetScale = el ? (isText ? 2.6 : 1.8) : 1;
+      ring.classList.toggle("is-hover", !!el && !isText);
+      ring.classList.toggle("is-text", isText);
+      ring.classList.toggle("on-ink", !!(e.target.closest && e.target.closest(".footer, .marquee, .preloader")));
+    });
+
+    (function loop() {
+      dx = lerp(dx, mx, 0.55);
+      dy = lerp(dy, my, 0.55);
+      rx = lerp(rx, mx, 0.16);
+      ry = lerp(ry, my, 0.16);
+      ringScale = lerp(ringScale, targetScale, 0.18);
+      dot.style.transform = "translate3d(" + dx + "px," + dy + "px,0)";
+      ring.style.transform = "translate3d(" + rx + "px," + ry + "px,0) scale(" + ringScale + ")";
+      requestAnimationFrame(loop);
+    })();
+  }
+
+  /* ---------- Magnetic links ---------- */
+  if (finePointer.matches && !reduceMotion.matches) {
+    document.querySelectorAll("[data-magnetic]").forEach(function (el) {
+      var tx = 0, ty = 0, cx = 0, cy = 0, rafId = null;
+      var strength = el.classList.contains("footer__talk") || el.classList.contains("btn") ? 0.35 : 0.55;
+
+      function animate() {
+        cx = lerp(cx, tx, 0.18);
+        cy = lerp(cy, ty, 0.18);
+        el.style.transform = "translate3d(" + cx.toFixed(2) + "px," + cy.toFixed(2) + "px,0)";
+        if (Math.abs(cx - tx) > 0.1 || Math.abs(cy - ty) > 0.1) {
+          rafId = requestAnimationFrame(animate);
+        } else {
+          rafId = null;
+        }
+      }
+
+      function kick() {
+        if (!rafId) rafId = requestAnimationFrame(animate);
+      }
+
+      el.addEventListener("mousemove", function (e) {
+        var r = el.getBoundingClientRect();
+        var max = 24;
+        tx = Math.max(-max, Math.min(max, (e.clientX - (r.left + r.width / 2)) * strength));
+        ty = Math.max(-max, Math.min(max, (e.clientY - (r.top + r.height / 2)) * strength));
+        kick();
+      });
+
+      el.addEventListener("mouseleave", function () {
+        tx = 0;
+        ty = 0;
+        kick();
+      });
+    });
+  }
+
   /* ---------- Reveal on scroll ---------- */
   var revealables = document.querySelectorAll("[data-reveal], .section-head");
 

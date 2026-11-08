@@ -1009,3 +1009,68 @@ a {
 .js:not(.is-ready) .hero__meta {
   animation-play-state: paused;
 }
+
+/* ---------- Custom cursor ---------- */
+
+.cursor {
+  display: none;
+}
+
+.has-cursor .cursor {
+  display: block;
+}
+
+.has-cursor,
+.has-cursor a,
+.has-cursor button {
+  cursor: none;
+}
+
+.cursor__dot,
+.cursor__ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 250;
+  pointer-events: none;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.cursor__dot {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  background: var(--acid);
+  outline: 1px solid var(--ink);
+}
+
+.cursor__ring {
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border: 1px solid var(--ink);
+  transition: background-color 200ms ease, border-color 200ms ease, opacity 200ms ease;
+}
+
+.cursor__ring.is-hover {
+  background: rgba(200, 255, 0, 0.12);
+}
+
+.cursor__ring.is-text {
+  background: rgba(200, 255, 0, 0.12);
+}
+
+.cursor__ring.on-ink {
+  border-color: var(--chalk);
+}
+
+.cursor.is-hidden .cursor__dot,
+.cursor.is-hidden .cursor__ring {
+  opacity: 0;
+}
+
+[data-magnetic] {
+  display: inline-block;
+  will-change: transform;
+}
