@@ -1208,3 +1208,32 @@ html.lenis body {
   font-weight: 700;
   letter-spacing: 0.08em;
 }
+
+/* ---------- 3D globe (hero) ---------- */
+
+.hero__globe {
+  position: absolute;
+  top: 24px;
+  right: calc(var(--pad-x) * -1 - 6vw);
+  width: min(60vw, 860px);
+  aspect-ratio: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease-out);
+}
+
+.hero__globe.is-live {
+  opacity: 1;
+}
+
+.hero__globe canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+@media (max-width: 899px) {
+  .hero__globe {
+    display: none;
+  }
+}
