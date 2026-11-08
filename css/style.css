@@ -1023,6 +1023,45 @@ main {
   display: none;
 }
 
+.preloader__globe {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  width: min(62vh, 78vw);
+  height: min(62vh, 78vw);
+  transform: translate(-50%, -50%);
+}
+
+.preloader.is-done .preloader__globe {
+  transform: translate(-50%, -50%) scale(1.15);
+  opacity: 0;
+  transition: transform 0.9s var(--ease-in-out), opacity 0.6s ease;
+}
+
+.preloader__coords {
+  position: absolute;
+  left: var(--pad-x);
+  top: var(--pad-x);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  color: var(--muted-on-ink);
+  text-transform: uppercase;
+}
+
+.preloader__coords span:first-child,
+.preloader__coords span:nth-child(2) {
+  color: var(--chalk);
+}
+
+.preloader__mark,
+.preloader__count {
+  position: relative;
+}
+
 .preloader__mark {
   font-family: var(--font-display);
   font-weight: 900;

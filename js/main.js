@@ -44,24 +44,140 @@
     return ("00" + n).slice(-3);
   }
 
+  /* A dotted 3D globe that forms as the counter climbs. Plain 2D
+     canvas with our own projection, so it shows instantly without
+     waiting for Three.js. */
+  var preCanvas = document.querySelector("[data-preglobe]");
+  var preCtx = preCanvas && preCanvas.getContext ? preCanvas.getContext("2d") : null;
+  var PRE_N = 1400;
+  var prePts = [];
+  (function () {
+    var golden = Math.PI * (3 - Math.sqrt(5));
+    for (var i = 0; i < PRE_N; i++) {
+      var y = 1 - (i / (PRE_N - 1)) * 2;
+      var r = Math.sqrt(1 - y * y);
+      var th = golden * i;
+      // each dot flies in from a random spot further out
+      var k = 1.6 + Math.random() * 1.4;
+      prePts.push({ x: Math.cos(th) * r, y: y, z: Math.sin(th) * r, k: k, d: Math.random() * 0.25 });
+    }
+  })();
+  var TAGUM_LAT = 7.45 * Math.PI / 180;
+  var TAGUM_LON = 125.81 * Math.PI / 180;
+  var pin = {
+    x: Math.cos(TAGUM_LAT) * Math.sin(TAGUM_LON),
+    y: Math.sin(TAGUM_LAT),
+    z: Math.cos(TAGUM_LAT) * Math.cos(TAGUM_LON)
+  };
+
+  function sizePreCanvas() {
+    if (!preCanvas) return;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = preCanvas.clientWidth, h = preCanvas.clientHeight;
+    preCanvas.width = Math.round(w * dpr);
+    preCanvas.height = Math.round(h * dpr);
+    preCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function drawPreGlobe(progress, time) {
+    if (!preCtx) return;
+    var w = preCanvas.clientWidth, h = preCanvas.clientHeight;
+    var R = Math.min(w, h) * 0.42;
+    var cx = w / 2, cy = h / 2;
+    preCtx.clearRect(0, 0, w, h);
+
+    // rotation ends facing the Philippines
+    var rotY = -TAGUM_LON + (1 - progress) * 2.4 + Math.sin(time * 0.6) * 0.05;
+    var rotX = 0.25;
+    var cY = Math.cos(rotY), sY = Math.sin(rotY);
+    var cX = Math.cos(rotX), sX = Math.sin(rotX);
+
+    function project(px, py, pz, scale) {
+      var x1 = px * cY + pz * sY;
+      var z1 = -px * sY + pz * cY;
+      var y2 = py * cX - z1 * sX;
+      var z2 = py * sX + z1 * cX;
+      var persp = 3.2 / (3.2 - z2 * scale);
+      return { x: cx + x1 * scale * R * persp, y: cy - y2 * scale * R * persp, z: z2 };
+    }
+
+    for (var i = 0; i < PRE_N; i++) {
+      var p = prePts[i];
+      // dots arrive top to bottom as the count rises
+      var arrive = Math.min(1, Math.max(0, (progress * 1.35 - (i / PRE_N) * 0.9 - p.d) / 0.35));
+      if (arrive <= 0) continue;
+      var e = 1 - Math.pow(1 - arrive, 3);
+      var scale = p.k + (1 - p.k) * e;
+      var q = project(p.x, p.y, p.z, scale);
+      var front = q.z > 0;
+      var size = (front ? 1.1 + q.z * 1.3 : 0.8) * (0.6 + e * 0.4);
+      preCtx.globalAlpha = (front ? 0.55 + q.z * 0.45 : 0.16) * e;
+      preCtx.fillStyle = front ? "#C8FF00" : "#F1F0EB";
+      preCtx.beginPath();
+      preCtx.arc(q.x, q.y, size, 0, Math.PI * 2);
+      preCtx.fill();
+    }
+
+    // outline ring
+    preCtx.globalAlpha = 0.25 * progress;
+    preCtx.strokeStyle = "#F1F0EB";
+    preCtx.lineWidth = 1;
+    preCtx.beginPath();
+    preCtx.arc(cx, cy, R * 1.01, 0, Math.PI * 2);
+    preCtx.stroke();
+
+    // Tagum pin lands near the end
+    var pinOn = Math.min(1, Math.max(0, (progress - 0.75) / 0.25));
+    if (pinOn > 0) {
+      var pp = project(pin.x, pin.y, pin.z, 1.02);
+      if (pp.z > 0) {
+        var pulse = (time * 1.2) % 1;
+        preCtx.globalAlpha = pinOn * (1 - pulse) * 0.8;
+        preCtx.strokeStyle = "#C8FF00";
+        preCtx.beginPath();
+        preCtx.arc(pp.x, pp.y, 6 + pulse * 18, 0, Math.PI * 2);
+        preCtx.stroke();
+        preCtx.globalAlpha = pinOn;
+        preCtx.fillStyle = "#F1F0EB";
+        preCtx.beginPath();
+        preCtx.arc(pp.x, pp.y, 5, 0, Math.PI * 2);
+        preCtx.fill();
+        preCtx.fillStyle = "#C8FF00";
+        preCtx.beginPath();
+        preCtx.arc(pp.x, pp.y, 3, 0, Math.PI * 2);
+        preCtx.fill();
+      }
+    }
+    preCtx.globalAlpha = 1;
+  }
+
   if (!preloader || reduceMotion.matches) {
     if (preloader) preloader.classList.add("is-gone");
     ready();
   } else {
+    sizePreCanvas();
+    window.addEventListener("resize", sizePreCanvas);
     var start = null;
-    var DURATION = 1400;
+    var DURATION = 2000;
+    var finished = false;
     var step = function (now) {
       if (start === null) start = now;
       var t = Math.min(1, (now - start) / DURATION);
       var eased = 1 - Math.pow(1 - t, 3);
       countEl.textContent = pad3(Math.round(eased * 100));
-      if (t < 1) {
-        requestAnimationFrame(step);
-      } else {
-        preloader.classList.add("is-done");
-        setTimeout(ready, 250);
-        setTimeout(function () { preloader.classList.add("is-gone"); }, 950);
+      drawPreGlobe(eased, now / 1000);
+      if (t >= 1 && !finished) {
+        finished = true;
+        setTimeout(function () {
+          preloader.classList.add("is-done");
+          setTimeout(ready, 250);
+          setTimeout(function () {
+            preloader.classList.add("is-gone");
+            window.removeEventListener("resize", sizePreCanvas);
+          }, 950);
+        }, 250);
       }
+      if (!preloader.classList.contains("is-gone")) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
   }
