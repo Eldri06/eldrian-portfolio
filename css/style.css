@@ -740,6 +740,9 @@ main {
 }
 
 .footer__talk {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.18em;
   font-family: var(--font-display);
   font-weight: 900;
   font-size: clamp(3.5rem, 12vw, 11.5rem);
@@ -748,7 +751,10 @@ main {
   text-transform: uppercase;
   text-decoration: none;
   color: var(--chalk);
-  /* fill left to right on hover */
+}
+
+/* fill left to right on hover */
+.footer__talk-text {
   background: linear-gradient(90deg, var(--acid) 50%, var(--chalk) 50%) 100% 0 / 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -758,14 +764,16 @@ main {
 
 .footer__arrow {
   display: inline-block;
-  transition: transform 500ms var(--ease-out);
+  color: var(--chalk);
+  transition: transform 500ms var(--ease-out), color 500ms var(--ease-out);
 }
 
-.footer__talk:hover {
+.footer__talk:hover .footer__talk-text {
   background-position: 0 0;
 }
 
 .footer__talk:hover .footer__arrow {
+  color: var(--acid);
   transform: translate(0.06em, -0.06em);
 }
 
