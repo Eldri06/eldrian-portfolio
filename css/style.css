@@ -800,3 +800,62 @@ a {
   font-size: 0.8125rem;
   color: var(--muted-on-ink);
 }
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .about__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .about__visual {
+    max-width: 360px;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  .header__links {
+    gap: 4px 18px;
+  }
+
+  .header__time {
+    display: none;
+  }
+
+  .hero {
+    padding-top: 48px;
+    gap: 28px;
+  }
+
+  .hero__rules {
+    display: none;
+  }
+
+  .hero__meta {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .work {
+    padding: 64px 0 72px;
+  }
+
+  .card__meta {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .about__list li {
+    font-size: 1.0625rem;
+  }
+
+  .footer__inner {
+    padding-top: 72px;
+    gap: 48px;
+  }
+}
