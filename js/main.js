@@ -409,7 +409,7 @@
       if (!target) return;
       if (lenis) {
         e.preventDefault();
-        lenis.scrollTo(id === "#top" ? 0 : target, { offset: -64 });
+        lenis.scrollTo(id === "#top" ? 0 : target, { offset: target.hasAttribute("data-anchor-flush") ? 0 : -64 });
       }
     });
   });

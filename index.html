@@ -224,46 +224,47 @@
       </dl>
     </section>
 
-    <section class="certs" id="certificates" aria-labelledby="certs-title" data-certs>
-      <div class="certs__bg" aria-hidden="true"></div>
-      <div class="wrap certs__inner">
+    <section class="certs" id="certificates" aria-labelledby="certs-title" data-certs data-anchor-flush>
+      <!-- Layout ported from samybit/portfolio, (c) 2026 Samy Barsoum, MIT License -->
+      <div class="certs__bg" aria-hidden="true">
+        <div class="certs__ambient"></div>
+        <div class="certs__dots"></div>
+        <div class="certs__cross"></div>
+      </div>
+
+      <div class="certs__wrap">
         <div class="certs__head">
-          <div class="certs__heading">
-            <span class="section-head__index">03</span>
-            <h2 class="certs__title" id="certs-title"><span>Certificates</span><span>&amp; awards</span></h2>
-            <span class="certs__bar" aria-hidden="true"></span>
+          <div>
+            <div class="certs__titlerow">
+              <h2 class="certs__title" id="certs-title" aria-label="Certificates"><span data-decrypt aria-hidden="true">Certificates</span></h2>
+              <div class="certs__bar" aria-hidden="true"></div>
+            </div>
+            <p class="certs__page" data-certs-page aria-live="polite">[ Page 01 / 01 ]</p>
           </div>
-          <p class="label certs__page" data-certs-page aria-live="polite">[ Page 01 / 01 ]</p>
         </div>
 
-        <div class="certs__body">
-          <ol class="certs__grid" data-certs-grid role="list"></ol>
-          <div class="certs__nav" role="group" aria-label="Certificate pages">
-            <button type="button" class="certs__navbtn" data-certs-prev aria-label="Previous certificates">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-              <span>Prev</span>
+        <div class="certs__desktop">
+          <div class="certs__grid" data-certs-grid></div>
+          <div class="certs__side">
+            <button type="button" class="certs__sbtn" data-certs-prev aria-label="Previous certificates">
+              <svg class="certs__arrow certs__arrow--up" viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+              <span class="certs__vtext certs__vtext--prev">Prev</span>
             </button>
-            <button type="button" class="certs__navbtn" data-certs-next aria-label="Next certificates">
-              <span>Next</span>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            <button type="button" class="certs__sbtn" data-certs-next aria-label="Next certificates">
+              <span class="certs__vtext">Next</span>
+              <svg class="certs__arrow certs__arrow--down" viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
             </button>
           </div>
+        </div>
+
+        <div class="certs__mobile">
+          <p class="certs__count" data-certs-count></p>
+          <div class="certs__mlist" data-certs-mobile></div>
         </div>
       </div>
     </section>
   </main>
 
-  <dialog class="cert-dialog" data-cert-dialog aria-labelledby="cert-dialog-title">
-    <div class="cert-dialog__head">
-      <div>
-        <p class="cert-dialog__title" id="cert-dialog-title" data-cert-dialog-title></p>
-        <p class="label cert-dialog__meta" data-cert-dialog-meta></p>
-      </div>
-      <button type="button" class="cert__btn" data-cert-dialog-close>Close ✕</button>
-    </div>
-    <img class="cert-dialog__img" data-cert-dialog-img src="" alt="">
-    <a class="cert__btn cert__btn--solid cert-dialog__open" data-cert-dialog-open href="#" target="_blank" rel="noopener">Open image ↗</a>
-  </dialog>
 
   <footer class="footer" id="contact" aria-label="Contact">
     <div class="footer__terrain" data-terrain aria-hidden="true"></div>
