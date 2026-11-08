@@ -36,9 +36,8 @@ Then open http://localhost:8000. The 3D scenes need a local server, so opening `
 
 - Works with keyboard navigation and screen readers (skip link, visible focus, labelled controls)
 - Respects reduced-motion settings: animations, 3D and scroll effects turn off
-- 3D only loads on larger screens, so phones stay fast
+- 3D runs lighter on phones and pauses when it scrolls off screen
 
 ## Credits
 
 Design inspired by [Akshay's portfolio](https://github.com/akshay-th/akshay-folio).
-Certificates section ported from [Samy Barsoum's portfolio](https://github.com/samybit/portfolio) under the MIT License (see `LICENSE-THIRD-PARTY.md`).
