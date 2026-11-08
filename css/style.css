@@ -246,3 +246,44 @@ a {
   background: var(--acid);
   outline: 1px solid var(--ink);
 }
+
+/* ---------- Marquee ---------- */
+
+.marquee {
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--chalk);
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  padding: 18px 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.375rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+  animation: marquee 28s linear infinite;
+}
+
+.marquee__track span {
+  padding-right: 28px;
+}
+
+.marquee__track i {
+  font-style: normal;
+  color: var(--acid);
+  padding: 0 6px;
+}
+
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
