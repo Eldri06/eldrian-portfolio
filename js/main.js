@@ -15,17 +15,6 @@
     }
   }
 
-  function phHour(date) {
-    try {
-      return parseInt(
-        date.toLocaleString("en-GB", { timeZone: TZ, hour: "2-digit", hour12: false }),
-        10
-      );
-    } catch (e) {
-      return date.getHours();
-    }
-  }
-
   function tick() {
     var t = phTime(new Date());
     for (var i = 0; i < clocks.length; i++) clocks[i].textContent = t;
@@ -34,14 +23,6 @@
   if (clocks.length) {
     tick();
     setInterval(tick, 1000);
-  }
-
-  /* ---------- Greeting by time of day ---------- */
-  var greet = document.querySelector("[data-greeting]");
-  if (greet) {
-    var h = phHour(new Date());
-    greet.textContent =
-      h < 12 ? "Good morning, welcome" : h < 18 ? "Good afternoon, welcome" : "Good evening, welcome";
   }
 
   /* ---------- Footer year ---------- */
