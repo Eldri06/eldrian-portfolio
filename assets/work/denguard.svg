@@ -1,14 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" width="1280" height="800">
-  <title>DenGuard cover: shocked cartoon cat meme</title>
-  <rect x="1.5" y="1.5" width="1277" height="797" fill="#E7E6E0" stroke="#121211" stroke-width="3"/>
-  <rect x="3" y="3" width="1274" height="58" fill="#E7E6E0"/>
-  <line x1="0" y1="61" x2="1280" y2="61" stroke="#121211" stroke-width="3"/>
-  <circle cx="36" cy="32" r="8" fill="none" stroke="#121211" stroke-width="2.5"/>
-  <circle cx="62" cy="32" r="8" fill="none" stroke="#121211" stroke-width="2.5"/>
-  <circle cx="88" cy="32" r="8" fill="#C8FF00" stroke="#121211" stroke-width="2.5"/>
-  <rect x="360" y="16" width="560" height="32" fill="#F1F0EB" stroke="#121211" stroke-width="2"/>
-  <text x="640" y="38" text-anchor="middle" font-family="Menlo, Consolas, monospace" font-size="16" fill="#5E5C56">denguard.app</text>
-  <g stroke="#121211" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 0)">
+  <title>DenGuard cover: shocked cartoon cat</title>
+  <rect width="1280" height="800" fill="#E7E6E0"/>
+  <g stroke="#121211" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" transform="translate(640 400) scale(1.45) translate(-640 -405)">
 
     <path d="M430 330 L455 170 L560 255 Z" fill="#F7F5EF"/><path d="M455 205 L470 290 L530 262 Z" fill="#C8FF00" stroke-width="5"/>
     <path d="M850 330 L825 170 L720 255 Z" fill="#F7F5EF"/><path d="M825 205 L810 290 L750 262 Z" fill="#C8FF00" stroke-width="5"/>
@@ -23,6 +16,4 @@
     <path d="M915 300 l20 -60 M950 330 l45 -40 M965 375 l55 -15" stroke-width="7"/>
 
   </g>
-  <text x="640" y="150" text-anchor="middle" font-family="Impact, 'Anton', 'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" font-size="64" letter-spacing="1" fill="#FFFFFF" stroke="#121211" stroke-width="10" stroke-linejoin="round" paint-order="stroke">WHEN THE MOSQUITO</text>
-  <text x="640" y="760" text-anchor="middle" font-family="Impact, 'Anton', 'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" font-size="64" letter-spacing="1" fill="#FFFFFF" stroke="#121211" stroke-width="10" stroke-linejoin="round" paint-order="stroke">SAYS 'JUST ONE BITE'</text>
 </svg>

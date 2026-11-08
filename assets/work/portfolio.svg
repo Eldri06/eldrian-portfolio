@@ -1,14 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" width="1280" height="800">
-  <title>Portfolio cover: stuffed-cheek cartoon hamster meme</title>
-  <rect x="1.5" y="1.5" width="1277" height="797" fill="#E7E6E0" stroke="#121211" stroke-width="3"/>
-  <rect x="3" y="3" width="1274" height="58" fill="#E7E6E0"/>
-  <line x1="0" y1="61" x2="1280" y2="61" stroke="#121211" stroke-width="3"/>
-  <circle cx="36" cy="32" r="8" fill="none" stroke="#121211" stroke-width="2.5"/>
-  <circle cx="62" cy="32" r="8" fill="none" stroke="#121211" stroke-width="2.5"/>
-  <circle cx="88" cy="32" r="8" fill="#C8FF00" stroke="#121211" stroke-width="2.5"/>
-  <rect x="360" y="16" width="560" height="32" fill="#F1F0EB" stroke="#121211" stroke-width="2"/>
-  <text x="640" y="38" text-anchor="middle" font-family="Menlo, Consolas, monospace" font-size="16" fill="#5E5C56">eldrian.dev</text>
-  <g stroke="#121211" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 0)">
+  <title>Portfolio cover: stuffed-cheek cartoon hamster</title>
+  <rect width="1280" height="800" fill="#E7E6E0"/>
+  <g stroke="#121211" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" transform="translate(640 400) scale(1.4) translate(-640 -430)">
 
     <circle cx="470" cy="250" r="48" fill="#E3A15A"/><circle cx="810" cy="250" r="48" fill="#E3A15A"/>
     <circle cx="470" cy="255" r="24" fill="#F4A6A6" stroke-width="5"/><circle cx="810" cy="255" r="24" fill="#F4A6A6" stroke-width="5"/>
@@ -20,9 +13,7 @@
     <path d="M615 480 q25 20 25 -10 q0 30 25 10" fill="none" stroke-width="6"/>
     <ellipse cx="455" cy="500" rx="95" ry="80" fill="#FFF3E0"/><ellipse cx="825" cy="500" rx="95" ry="80" fill="#FFF3E0"/>
     <path d="M420 470 q20 -15 40 0 M800 470 q20 -15 40 0" fill="none" stroke-width="5"/>
-    <g transform="translate(640 585) rotate(-10)"><rect x="-62" y="-30" width="124" height="60" rx="10" fill="#C8FF00"/><text x="0" y="12" text-anchor="middle" font-family="Menlo, monospace" font-size="30" font-weight="700" fill="#121211" stroke="none">&lt;/&gt;</text></g>
+    <g transform="translate(640 585) rotate(-10)"><ellipse rx="46" ry="26" fill="#C8FF00"/><path d="M-30 0 q30 -14 60 0" fill="none" stroke-width="4"/></g>
 
   </g>
-  <text x="640" y="150" text-anchor="middle" font-family="Impact, 'Anton', 'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" font-size="64" letter-spacing="1" fill="#FFFFFF" stroke="#121211" stroke-width="10" stroke-linejoin="round" paint-order="stroke">ME AT 3AM</text>
-  <text x="640" y="760" text-anchor="middle" font-family="Impact, 'Anton', 'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" font-size="64" letter-spacing="1" fill="#FFFFFF" stroke="#121211" stroke-width="10" stroke-linejoin="round" paint-order="stroke">'ONE MORE ANIMATION'</text>
 </svg>
