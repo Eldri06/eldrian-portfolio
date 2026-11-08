@@ -288,10 +288,20 @@ main {
   padding-right: 28px;
 }
 
-.marquee__track i {
-  font-style: normal;
-  color: var(--acid);
-  padding: 0 6px;
+.marquee__track .sep {
+  display: inline-block;
+  width: 0.5em;
+  height: 0.5em;
+  margin: 0 0.55em 0.12em;
+  vertical-align: middle;
+  background: var(--acid);
+  transform: rotateX(-24deg) rotateY(38deg) rotate(0deg);
+  animation: sep-spin 6s linear infinite;
+}
+
+@keyframes sep-spin {
+  from { transform: perspective(40px) rotateY(0deg); }
+  to { transform: perspective(40px) rotateY(360deg); }
 }
 
 .marquee:hover .marquee__track {
@@ -974,6 +984,10 @@ main {
     animation: none;
   }
 
+  .marquee__track .sep {
+    animation: none;
+  }
+
   .marquee__track {
     animation: none;
     flex-wrap: wrap;
@@ -1178,8 +1192,8 @@ main {
   font-size: 1.125rem;
 }
 
-.marquee--reverse .marquee__track i {
-  color: var(--ink);
+.marquee--reverse .marquee__track .sep {
+  background: var(--ink);
 }
 
 .marquee--reverse .marquee__track span {
