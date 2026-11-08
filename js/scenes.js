@@ -1,14 +1,14 @@
 /* 3D scenes: dotted globe in the hero, cube sculpture in About,
    wireframe terrain in the footer.
-   Loaded as a module; Three.js is only downloaded on desktop screens
-   with WebGL and without reduced motion. */
+   Loaded as a module; Three.js is only downloaded when the browser has
+   WebGL and the visitor hasn't asked for reduced motion. */
 
 const THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js";
 
 const INK = 0x121211;
 const ACID = 0xc8ff00;
 
-const wide = window.matchMedia("(min-width: 900px)");
+const small = window.matchMedia("(max-width: 899px)");
 
 /* Read a color token from the page, e.g. --fg, so 3D follows the theme. */
 function cssColor(name, fallback) {
@@ -67,7 +67,8 @@ function loopWhileVisible(el, frame) {
 
 function makeRenderer(THREE, host) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "low-power" });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  // Phones get a lower pixel ratio so the scenes stay smooth on battery.
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, small.matches ? 1.5 : 2));
   renderer.setClearColor(0x000000, 0);
   host.appendChild(renderer.domElement);
   return renderer;
@@ -699,7 +700,8 @@ function initTerrain(THREE, host, footer) {
 /* ---------------- Boot ---------------- */
 
 async function boot() {
-  if (!wide.matches || reduce.matches || !hasWebGL()) return;
+  const no3d = () => document.documentElement.classList.add("no-3d");
+  if (reduce.matches || !hasWebGL()) return no3d();
   const globeHost = document.querySelector("[data-globe]");
   const cubesHost = document.querySelector("[data-cubes]");
   const terrainHost = document.querySelector("[data-terrain]");
@@ -710,7 +712,7 @@ async function boot() {
   try {
     THREE = await import(THREE_URL);
   } catch (e) {
-    return; // No 3D, the page still works.
+    return no3d(); // No 3D, the page still works.
   }
   const start = async (name, fn) => {
     try {
@@ -719,7 +721,9 @@ async function boot() {
       console.warn(name + " failed to start", e);
     }
   };
-  if (globeHost) start("Globe", () => initGlobe(THREE, globeHost));
+  if (globeHost) start("Globe", () => initGlobe(THREE, globeHost)).then(() => {
+    if (!globeHost.classList.contains("is-live")) no3d();
+  });
   if (cubesHost) start("Cubes", () => initCubes(THREE, cubesHost));
   if (terrainHost && footer) start("Terrain", () => initTerrain(THREE, terrainHost, footer));
 }

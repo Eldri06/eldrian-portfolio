@@ -1355,11 +1355,6 @@ html.lenis body {
   transition-delay: 0s;
 }
 
-@media (max-width: 899px) {
-  .hero__drag {
-    display: none;
-  }
-}
 
 /* keep the headline readable and clickable above the globe */
 .hero__title,
@@ -1378,8 +1373,32 @@ html.lenis body {
   height: 100% !important;
 }
 
+/* Tablets and phones: the globe sits in the flow under the headline. */
 @media (max-width: 899px) {
+  .hero__greeting { order: 0; }
+  .hero__title { order: 1; }
+
   .hero__globe {
+    order: 2;
+    position: relative;
+    top: auto;
+    right: auto;
+    align-self: center;
+    width: min(100%, 520px);
+    margin: -12px 0 -20px;
+  }
+
+  .hero__drag {
+    order: 3;
+    position: static;
+    align-self: center;
+  }
+
+  .hero__meta { order: 4; }
+
+  /* No 3D (reduced motion, no WebGL): don't leave an empty square. */
+  .no-3d .hero__globe,
+  .no-3d .hero__drag {
     display: none;
   }
 }
