@@ -72,24 +72,32 @@ function dotMaterial(THREE, renderer, opts) {
       uSize: { value: opts.size },
       uRatio: { value: renderer.getPixelRatio() },
       uAlpha: { value: opts.alpha },
-      uReveal: { value: 0 }
+      uReveal: { value: 0 },
+      uHit: { value: new THREE.Vector3(0, 0, 1) },
+      uHitAmt: { value: 0 }
     },
     vertexShader: `
       uniform vec3 uLight;
       uniform float uSize;
       uniform float uRatio;
       uniform float uReveal;
+      uniform vec3 uHit;
+      uniform float uHitAmt;
       varying float vLight;
       varying float vFront;
       varying float vShow;
+      varying float vBump;
       void main() {
+        float d = distance(normalize(position), uHit);
+        vBump = smoothstep(0.42, 0.0, d) * uHitAmt;
+        vec3 p = position * (1.0 + vBump * 0.09);
         vec3 n = normalize(mat3(modelMatrix) * position);
         vLight = max(dot(n, uLight), 0.0);
         vFront = n.z;
         float edge = 1.15 - uReveal * 2.5;
         vShow = smoothstep(edge, edge + 0.35, position.y);
-        vec4 mv = viewMatrix * modelMatrix * vec4(position, 1.0);
-        gl_PointSize = uSize * uRatio * (0.35 + vLight * 1.0) * (4.2 / -mv.z) * vShow;
+        vec4 mv = viewMatrix * modelMatrix * vec4(p, 1.0);
+        gl_PointSize = uSize * uRatio * (0.35 + vLight * 1.0 + vBump * 0.9) * (4.2 / -mv.z) * vShow;
         gl_Position = projectionMatrix * mv;
       }
     `,
@@ -99,10 +107,12 @@ function dotMaterial(THREE, renderer, opts) {
       varying float vLight;
       varying float vFront;
       varying float vShow;
+      varying float vBump;
       void main() {
         vec2 c = gl_PointCoord - 0.5;
         if (dot(c, c) > 0.25) discard;
         float a = vFront > -0.05 ? uAlpha * (0.55 + vLight * 0.45) : uAlpha * 0.16;
+        a = min(1.0, a + vBump * 0.5);
         gl_FragColor = vec4(uColor, a * vShow);
       }
     `
@@ -271,26 +281,65 @@ async function initGlobe(THREE, host) {
   let dragging = false;
   let lastX = 0;
 
-  // Drag to spin, with inertia.
+  // Drag to spin (both axes), with inertia. Listeners sit on window
+  // during a drag so it keeps working even if the pointer leaves.
+  let tiltDrag = 0;
+  let velY = 0;
+  let lastY = 0;
   host.addEventListener("pointerdown", (e) => {
+    e.preventDefault(); // stop text selection on Safari
     dragging = true;
     lastX = e.clientX;
-    host.setPointerCapture(e.pointerId);
-    host.classList.add("is-dragging");
+    lastY = e.clientY;
+    host.classList.add("is-dragging", "was-touched");
   });
-  host.addEventListener("pointermove", (e) => {
+  window.addEventListener("pointermove", (e) => {
     if (!dragging) return;
     const dx = e.clientX - lastX;
+    const dy = e.clientY - lastY;
     lastX = e.clientX;
-    velocity = dx * 0.006;
+    lastY = e.clientY;
+    velocity = dx * 0.007;
+    velY = dy * 0.004;
     spin += velocity;
+    tiltDrag = Math.max(-0.6, Math.min(0.6, tiltDrag + velY));
   });
   const release = () => {
+    if (!dragging) return;
     dragging = false;
     host.classList.remove("is-dragging");
   };
-  host.addEventListener("pointerup", release);
-  host.addEventListener("pointercancel", release);
+  window.addEventListener("pointerup", release);
+  window.addEventListener("pointercancel", release);
+
+  // Hover: dots under the pointer swell and lift, and a ring marks the spot.
+  const hoverRay = new THREE.Raycaster();
+  const hoverNdc = new THREE.Vector2(9, 9);
+  let hoverOn = false;
+  let hitAmt = 0;
+  const hitLocal = new THREE.Vector3(0, 0, 1);
+  host.addEventListener("pointermove", (e) => {
+    const r = host.getBoundingClientRect();
+    hoverNdc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    hoverOn = true;
+  });
+  host.addEventListener("pointerleave", () => {
+    hoverOn = false;
+  });
+
+  const marker = new THREE.Group();
+  const markerRing = new THREE.Mesh(
+    new THREE.RingGeometry(0.075, 0.085, 64),
+    new THREE.MeshBasicMaterial({ color: INK, transparent: true, opacity: 0, side: THREE.DoubleSide, depthTest: false })
+  );
+  const markerDot = new THREE.Mesh(
+    new THREE.CircleGeometry(0.018, 24),
+    new THREE.MeshBasicMaterial({ color: ACID, transparent: true, opacity: 0, side: THREE.DoubleSide, depthTest: false })
+  );
+  markerDot.renderOrder = 4;
+  markerRing.renderOrder = 4;
+  marker.add(markerRing, markerDot);
+  globe.add(marker);
 
   let mx = 0, my = 0, tx = 0, ty = 0;
   window.addEventListener("pointermove", (e) => {
@@ -346,7 +395,29 @@ async function initGlobe(THREE, host) {
 
     mx += (tx - mx) * 0.05;
     my += (ty - my) * 0.05;
-    tilt.rotation.x = 0.22 + my * 0.22 + scrollP * 0.5;
+    if (!dragging) tiltDrag *= 0.97;
+    tilt.rotation.x = 0.22 + my * 0.22 + scrollP * 0.5 + tiltDrag;
+
+    // Hover hit on the sphere, in the globe's own space.
+    let hitting = false;
+    if (hoverOn && !dragging) {
+      hoverRay.setFromCamera(hoverNdc, camera);
+      const hits = hoverRay.intersectObject(occluder, false);
+      if (hits.length) {
+        hitting = true;
+        hitLocal.copy(globe.worldToLocal(hits[0].point.clone())).normalize();
+      }
+    }
+    hitAmt += ((hitting ? 1 : 0) - hitAmt) * 0.12;
+    landMat.uniforms.uHit.value.copy(hitLocal);
+    oceanMat.uniforms.uHit.value.copy(hitLocal);
+    landMat.uniforms.uHitAmt.value = hitAmt;
+    oceanMat.uniforms.uHitAmt.value = hitAmt;
+    marker.position.copy(hitLocal).multiplyScalar(1.03);
+    marker.lookAt(hitLocal.clone().multiplyScalar(3).applyMatrix4(globe.matrixWorld));
+    markerRing.material.opacity = 0.8 * hitAmt;
+    markerDot.material.opacity = hitAmt;
+    marker.scale.setScalar(0.8 + hitAmt * 0.2 + Math.sin(t * 4) * 0.04 * hitAmt);
     tilt.rotation.z = -0.08 + mx * 0.06;
     tilt.position.y = scrollP * 0.35;
     const s = (0.86 + k * 0.14) * (1 + scrollP * 0.25);

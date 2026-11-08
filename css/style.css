@@ -1240,6 +1240,56 @@ html.lenis body {
   cursor: grabbing;
 }
 
+.hero__globe {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.hero__drag {
+  position: absolute;
+  right: var(--pad-x);
+  top: 96px;
+  z-index: 2;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+  pointer-events: none;
+}
+
+.hero__drag::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: var(--ink);
+}
+
+.hero__drag span {
+  background: var(--acid);
+  padding: 4px 8px;
+}
+
+.hero__globe.is-live + .hero__drag {
+  opacity: 1;
+  transform: none;
+  transition-delay: 2.4s;
+}
+
+.hero__globe.was-touched + .hero__drag {
+  opacity: 0;
+  transition-delay: 0s;
+}
+
+@media (max-width: 899px) {
+  .hero__drag {
+    display: none;
+  }
+}
+
 /* keep the headline readable and clickable above the globe */
 .hero__title,
 .hero__meta {
