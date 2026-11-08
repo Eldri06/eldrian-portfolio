@@ -956,3 +956,56 @@ a {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ---------- Preloader ---------- */
+
+.preloader {
+  display: none;
+}
+
+.js .preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding: var(--pad-x);
+  background: var(--ink);
+  color: var(--chalk);
+  clip-path: inset(0 0 0 0);
+}
+
+.preloader.is-done {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.9s var(--ease-in-out);
+}
+
+.preloader.is-gone {
+  display: none;
+}
+
+.preloader__mark {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.5rem;
+  letter-spacing: -0.03em;
+}
+
+.preloader__count {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(5rem, 22vw, 18rem);
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  color: var(--acid);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hero waits for the preloader */
+.js:not(.is-ready) .hero__title .line > span,
+.js:not(.is-ready) .hero__greeting,
+.js:not(.is-ready) .hero__meta {
+  animation-play-state: paused;
+}

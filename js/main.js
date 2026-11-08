@@ -49,6 +49,41 @@
   if (year) year.textContent = String(new Date().getFullYear());
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var root = document.documentElement;
+
+  /* ---------- Preloader: 000 to 100, then wipe up ---------- */
+  var preloader = document.querySelector(".preloader");
+  var countEl = document.querySelector("[data-count]");
+
+  function ready() {
+    root.classList.add("is-ready");
+  }
+
+  function pad3(n) {
+    return ("00" + n).slice(-3);
+  }
+
+  if (!preloader || reduceMotion.matches) {
+    if (preloader) preloader.classList.add("is-gone");
+    ready();
+  } else {
+    var start = null;
+    var DURATION = 1400;
+    var step = function (now) {
+      if (start === null) start = now;
+      var t = Math.min(1, (now - start) / DURATION);
+      var eased = 1 - Math.pow(1 - t, 3);
+      countEl.textContent = pad3(Math.round(eased * 100));
+      if (t < 1) {
+        requestAnimationFrame(step);
+      } else {
+        preloader.classList.add("is-done");
+        setTimeout(ready, 250);
+        setTimeout(function () { preloader.classList.add("is-gone"); }, 950);
+      }
+    };
+    requestAnimationFrame(step);
+  }
 
   /* ---------- Reveal on scroll ---------- */
   var revealables = document.querySelectorAll("[data-reveal], .section-head");

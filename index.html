@@ -21,8 +21,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&family=Anton&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script>
+    // Mark JS as available so motion-only styles apply; fail open after 4s.
+    document.documentElement.classList.add("js");
+    setTimeout(function () { document.documentElement.classList.add("is-ready"); }, 4000);
+  </script>
 </head>
 <body>
+  <div class="preloader" aria-hidden="true">
+    <div class="preloader__mark">ELDRIAN<sup>©</sup></div>
+    <div class="preloader__count" data-count>000</div>
+  </div>
+
   <a class="skip" href="#main">Skip to content</a>
 
   <header class="header">
