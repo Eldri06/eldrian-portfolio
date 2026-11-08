@@ -6,7 +6,7 @@
   <title>Eldrian Colinares | Data-driven systems</title>
   <meta name="description" content="Portfolio of Eldrian Colinares, a BSIT Business Analytics student in Tagum City building full-stack web apps, ML forecasting and computer vision systems.">
   <meta name="author" content="Eldrian T. Colinares">
-  <meta name="theme-color" content="#F1F0EB">
+  <meta name="theme-color" content="#F1F0EB" data-theme-color>
   <link rel="canonical" href="https://eldri06.github.io/eldrian-portfolio/">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23121211'/%3E%3Crect x='14' y='14' width='26' height='26' fill='%23C8FF00'/%3E%3C/svg%3E">
 
@@ -24,6 +24,15 @@
   <script>
     // Mark JS as available so motion-only styles apply; fail open after 4s.
     document.documentElement.classList.add("js");
+    // Pick the theme before first paint: saved choice, else the system setting.
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (t !== "light" && t !== "dark") {
+        t = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.setAttribute("data-theme", t);
+    })();
     setTimeout(function () { document.documentElement.classList.add("is-ready"); }, 4000);
   </script>
 </head>
@@ -48,6 +57,12 @@
         <a href="#about" data-magnetic>About</a>
         <a href="#contact" data-magnetic>Contact</a>
         <span class="header__time">PH <span data-clock>--:--:--</span></span>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+            <g class="tt-sun"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></g>
+            <path class="tt-moon" d="M19.5 14.6A8 8 0 0 1 9.4 4.5a8 8 0 1 0 10.1 10.1Z"/>
+          </svg>
+        </button>
       </div>
     </nav>
   </header>

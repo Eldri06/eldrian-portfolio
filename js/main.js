@@ -182,6 +182,46 @@
     requestAnimationFrame(step);
   }
 
+  /* ---------- Light / dark theme ---------- */
+  var toggle = document.querySelector("[data-theme-toggle]");
+  var themeMeta = document.querySelector("[data-theme-color]");
+
+  function applyTheme(theme, animate) {
+    if (animate) {
+      root.classList.add("theme-anim");
+      setTimeout(function () { root.classList.remove("theme-anim"); }, 450);
+    }
+    root.setAttribute("data-theme", theme);
+    if (toggle) {
+      var dark = theme === "dark";
+      toggle.setAttribute("aria-pressed", String(dark));
+      toggle.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+    }
+    if (themeMeta) themeMeta.setAttribute("content", theme === "dark" ? "#121211" : "#F1F0EB");
+    document.dispatchEvent(new CustomEvent("themechange", { detail: { theme: theme } }));
+  }
+
+  applyTheme(root.getAttribute("data-theme") === "dark" ? "dark" : "light", false);
+
+  if (toggle) {
+    toggle.addEventListener("click", function () {
+      var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      try { localStorage.setItem("theme", next); } catch (e) {}
+      applyTheme(next, !reduceMotion.matches);
+    });
+  }
+
+  // Follow the system setting live, unless the visitor picked one.
+  if (window.matchMedia) {
+    var sysDark = window.matchMedia("(prefers-color-scheme: dark)");
+    var onSys = function (e) {
+      var saved = null;
+      try { saved = localStorage.getItem("theme"); } catch (err) {}
+      if (saved !== "light" && saved !== "dark") applyTheme(e.matches ? "dark" : "light", true);
+    };
+    if (sysDark.addEventListener) sysDark.addEventListener("change", onSys);
+  }
+
   /* ---------- Header: blur once the page scrolls ---------- */
   var header = document.querySelector(".header");
   function onScrollHeader() {
@@ -222,7 +262,9 @@
       targetScale = el ? (isText ? 2.6 : 1.8) : 1;
       ring.classList.toggle("is-hover", !!el && !isText);
       ring.classList.toggle("is-text", isText);
-      ring.classList.toggle("on-ink", !!(e.target.closest && e.target.closest(".footer, .marquee, .preloader")));
+      var light = root.getAttribute("data-theme") !== "dark";
+      var overDark = e.target.closest && (e.target.closest(".footer, .preloader, .about__art") || (light && e.target.closest(".marquee:not(.marquee--reverse)")));
+      ring.classList.toggle("on-ink", !!overDark);
     });
 
     (function loop() {

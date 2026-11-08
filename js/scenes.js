@@ -9,6 +9,31 @@ const INK = 0x121211;
 const ACID = 0xc8ff00;
 
 const wide = window.matchMedia("(min-width: 900px)");
+
+/* Read a color token from the page, e.g. --fg, so 3D follows the theme. */
+function cssColor(name, fallback) {
+  const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  return v || fallback;
+}
+
+/* Recolor every ink-colored material in a scene to the theme's text
+   color, now and whenever the theme changes. */
+function followTheme(scene) {
+  const targets = [];
+  scene.traverse((o) => {
+    const mats = o.material ? (Array.isArray(o.material) ? o.material : [o.material]) : [];
+    mats.forEach((m) => {
+      if (m.uniforms && m.uniforms.uColor && m.uniforms.uColor.value.getHex() === INK) targets.push(m.uniforms.uColor.value);
+      else if (m.color && m.color.getHex() === INK) targets.push(m.color);
+    });
+  });
+  const apply = () => {
+    const c = cssColor("--fg", "#121211");
+    targets.forEach((col) => col.set(c));
+  };
+  apply();
+  document.addEventListener("themechange", apply);
+}
 const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 function hasWebGL() {
@@ -456,6 +481,8 @@ async function initGlobe(THREE, host) {
     renderer.render(scene, camera);
   });
 
+  followTheme(scene);
+
   host.classList.add("is-live");
 }
 
@@ -661,6 +688,10 @@ function initTerrain(THREE, host, footer) {
     attr.needsUpdate = true;
     renderer.render(scene, camera);
   });
+
+  const applyFog = () => scene.fog.color.set(cssColor("--panel", "#121211"));
+  applyFog();
+  document.addEventListener("themechange", applyFog);
 
   host.classList.add("is-live");
 }

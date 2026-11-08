@@ -23,6 +23,23 @@
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  /* Semantic colors. Light is the default; dark overrides below. */
+  --on-acid: #121211;
+  --bg: var(--chalk);
+  --bg-2: var(--chalk-2);
+  --fg: var(--ink);
+  --fg-2: var(--ink-2);
+  --grid-line: rgba(18, 18, 17, 0.08);
+  --header-bg: rgba(241, 240, 235, 0.8);
+  --inv-bg: var(--ink);
+  --inv-fg: var(--chalk);
+  --sep: var(--acid);
+  --panel: var(--ink);
+  --panel-fg: var(--chalk);
+  --panel-muted: var(--muted-on-ink);
+  --panel-line: var(--line-on-ink);
+  color-scheme: light;
 }
 
 *,
@@ -38,8 +55,8 @@ html {
 
 body {
   margin: 0;
-  background: var(--chalk);
-  color: var(--ink);
+  background: var(--bg);
+  color: var(--fg);
   font-family: var(--font-body);
   font-size: clamp(1rem, 1.1vw, 1.125rem);
   line-height: 1.55;
@@ -59,11 +76,11 @@ a {
 
 ::selection {
   background: var(--acid);
-  color: var(--ink);
+  color: var(--on-acid);
 }
 
 :focus-visible {
-  outline: 2px solid var(--ink);
+  outline: 2px solid var(--fg);
   outline-offset: 3px;
   box-shadow: 0 0 0 5px var(--acid);
 }
@@ -75,7 +92,7 @@ a {
   z-index: 100;
   padding: 12px 16px;
   background: var(--acid);
-  color: var(--ink);
+  color: var(--on-acid);
   font-weight: 700;
   text-decoration: none;
 }
@@ -101,7 +118,7 @@ a {
 
 .mark {
   background: var(--acid);
-  color: var(--ink);
+  color: var(--on-acid);
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
@@ -114,13 +131,13 @@ a {
   left: 0;
   right: 0;
   z-index: 50;
-  background: rgba(241, 240, 235, 0);
+  background: transparent;
   border-bottom: 1px solid var(--line);
   transition: background-color 300ms ease, backdrop-filter 300ms ease;
 }
 
 .header.is-scrolled {
-  background: rgba(241, 240, 235, 0.8);
+  background: var(--header-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -199,7 +216,7 @@ main {
 
 .hero__rules span {
   width: 1px;
-  background: rgba(18, 18, 17, 0.08);
+  background: var(--grid-line);
 }
 
 .hero__greeting,
@@ -237,8 +254,8 @@ main {
   flex-wrap: wrap;
   gap: 16px 48px;
   padding-top: 24px;
-  border-top: 1px solid var(--ink);
-  color: var(--ink);
+  border-top: 1px solid var(--fg);
+  color: var(--fg);
 }
 
 .hero__meta span + span {
@@ -259,17 +276,17 @@ main {
   width: 10px;
   height: 10px;
   background: var(--acid);
-  outline: 1px solid var(--ink);
+  outline: 1px solid var(--on-acid);
 }
 
 /* ---------- Marquee ---------- */
 
 .marquee {
   overflow: hidden;
-  background: var(--ink);
-  color: var(--chalk);
-  border-top: 1px solid var(--ink);
-  border-bottom: 1px solid var(--ink);
+  background: var(--inv-bg);
+  color: var(--inv-fg);
+  border-top: 1px solid var(--fg);
+  border-bottom: 1px solid var(--fg);
 }
 
 .marquee__track {
@@ -294,7 +311,7 @@ main {
   height: 0.5em;
   margin: 0 0.55em 0.12em;
   vertical-align: middle;
-  background: var(--acid);
+  background: var(--sep);
   animation: sep-spin 8s linear infinite;
 }
 
@@ -325,12 +342,13 @@ main {
   content: "";
   flex: 0 0 100%;
   height: 1px;
-  background: var(--ink);
+  background: var(--fg);
   margin-bottom: 4px;
   transform-origin: left;
 }
 
 .section-head__index {
+  color: var(--on-acid);
   font-family: var(--font-mono);
   font-size: 0.875rem;
   font-weight: 700;
@@ -365,7 +383,7 @@ main {
   scroll-snap-type: x mandatory;
   scroll-padding-inline: var(--pad-x);
   scrollbar-width: thin;
-  scrollbar-color: var(--ink) transparent;
+  scrollbar-color: var(--fg) transparent;
 }
 
 .work__track {
@@ -420,14 +438,14 @@ main {
   flex-direction: column;
   gap: 18px;
   text-decoration: none;
-  color: var(--ink);
+  color: var(--fg);
 }
 
 .card__world {
   position: relative;
   height: clamp(260px, 38vh, 380px);
   overflow: hidden;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--fg);
   transition: transform 250ms var(--ease-out);
 }
 
@@ -453,7 +471,7 @@ main {
 
 .card__desc {
   margin: 0;
-  color: var(--ink-2);
+  color: var(--fg-2);
   max-width: 46ch;
 }
 
@@ -707,7 +725,7 @@ main {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 24px;
   padding-top: 32px;
-  border-top: 1px solid var(--ink);
+  border-top: 1px solid var(--fg);
 }
 
 .stats div {
@@ -730,8 +748,8 @@ main {
 .footer {
   position: relative;
   overflow: hidden;
-  background: var(--ink);
-  color: var(--chalk);
+  background: var(--panel);
+  color: var(--panel-fg);
 }
 
 .footer__inner {
@@ -748,7 +766,7 @@ main {
 }
 
 .footer .label {
-  color: var(--muted-on-ink);
+  color: var(--panel-muted);
 }
 
 .footer__kicker {
@@ -766,12 +784,12 @@ main {
   letter-spacing: -0.04em;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--chalk);
+  color: var(--panel-fg);
 }
 
 /* fill left to right on hover */
 .footer__talk-text {
-  background: linear-gradient(90deg, var(--acid) 50%, var(--chalk) 50%) 100% 0 / 200% 100%;
+  background: linear-gradient(90deg, var(--acid) 50%, var(--panel-fg) 50%) 100% 0 / 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -780,7 +798,7 @@ main {
 
 .footer__arrow {
   display: inline-block;
-  color: var(--chalk);
+  color: var(--panel-fg);
   transition: transform 500ms var(--ease-out), color 500ms var(--ease-out);
 }
 
@@ -798,7 +816,7 @@ main {
   flex-wrap: wrap;
   gap: 32px 72px;
   padding-top: 32px;
-  border-top: 1px solid var(--line-on-ink);
+  border-top: 1px solid var(--panel-line);
 }
 
 .footer__col {
@@ -828,7 +846,7 @@ main {
   display: inline-block;
   padding: 14px 20px;
   background: var(--acid);
-  color: var(--ink);
+  color: var(--on-acid);
   font-weight: 700;
   font-size: 0.9375rem;
   text-decoration: none;
@@ -845,7 +863,7 @@ main {
   justify-content: space-between;
   gap: 12px;
   font-size: 0.8125rem;
-  color: var(--muted-on-ink);
+  color: var(--panel-muted);
 }
 
 /* ---------- Responsive ---------- */
@@ -1131,14 +1149,14 @@ main {
   height: 8px;
   margin: -4px 0 0 -4px;
   background: var(--acid);
-  outline: 1px solid var(--ink);
+  outline: 1px solid var(--on-acid);
 }
 
 .cursor__ring {
   width: 36px;
   height: 36px;
   margin: -18px 0 0 -18px;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--fg);
   transition: background-color 200ms ease, border-color 200ms ease, opacity 200ms ease;
 }
 
@@ -1151,7 +1169,7 @@ main {
 }
 
 .cursor__ring.on-ink {
-  border-color: var(--chalk);
+  border-color: var(--chalk) !important;
 }
 
 .cursor.is-hidden .cursor__dot,
@@ -1180,7 +1198,7 @@ main {
 
 .marquee--reverse {
   background: var(--acid);
-  color: var(--ink);
+  color: var(--on-acid);
   border-top: 0;
 }
 
@@ -1192,7 +1210,7 @@ main {
 }
 
 .marquee--reverse .marquee__track .sep {
-  background: var(--ink);
+  background: var(--on-acid);
 }
 
 .marquee--reverse .marquee__track span {
@@ -1236,7 +1254,7 @@ html.lenis body {
   opacity: 0;
   transition: opacity 0.35s ease;
   pointer-events: none;
-  background: var(--chalk);
+  background: var(--bg);
 }
 
 .card__preview.is-on {
@@ -1261,7 +1279,7 @@ html.lenis body {
   z-index: 1;
   padding: 4px 8px;
   background: var(--acid);
-  color: var(--ink);
+  color: var(--on-acid);
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   font-weight: 700;
@@ -1306,7 +1324,7 @@ html.lenis body {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: var(--ink);
+  color: var(--fg);
   opacity: 0;
   transform: translateY(6px);
   transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
@@ -1317,11 +1335,12 @@ html.lenis body {
   content: "";
   width: 28px;
   height: 1px;
-  background: var(--ink);
+  background: var(--fg);
 }
 
 .hero__drag span {
   background: var(--acid);
+  color: var(--on-acid);
   padding: 4px 8px;
 }
 
@@ -1458,15 +1477,15 @@ html.lenis body {
   width: 1.05em;
   height: 1.05em;
   overflow: visible;
-  stroke: var(--ink);
+  stroke: var(--fg);
   stroke-width: 1.4;
   stroke-linejoin: round;
   transition: transform 600ms var(--ease-out);
 }
 
 .logo-mark .lm-top { fill: var(--acid); }
-.logo-mark .lm-left { fill: var(--chalk); }
-.logo-mark .lm-right { fill: var(--ink); }
+.logo-mark .lm-left { fill: var(--bg); }
+.logo-mark .lm-right { fill: var(--fg); }
 
 .wordmark:hover .logo-mark {
   transform: rotate(-120deg);
@@ -1485,4 +1504,101 @@ html.lenis body {
 .preloader .logo-mark .lm-right,
 .world-self__mark .logo-mark .lm-right {
   fill: var(--muted-on-ink);
+}
+
+/* ---------- Dark mode ---------- */
+
+:root[data-theme="dark"] {
+  --bg: #121211;
+  --bg-2: #1C1C1A;
+  --fg: #F1F0EB;
+  --fg-2: #C9C7BF;
+  --muted: #9D9B93;
+  --line: rgba(241, 240, 235, 0.14);
+  --grid-line: rgba(241, 240, 235, 0.07);
+  --header-bg: rgba(18, 18, 17, 0.78);
+  --inv-bg: #F1F0EB;
+  --inv-fg: #121211;
+  --sep: #121211;
+  --panel: #0A0A09;
+  --panel-fg: #F1F0EB;
+  --panel-muted: #A9A79F;
+  --panel-line: rgba(241, 240, 235, 0.16);
+  color-scheme: dark;
+}
+
+:root[data-theme="dark"] .grain {
+  opacity: 0.35;
+  filter: invert(1);
+}
+
+:root[data-theme="dark"] .footer {
+  border-top: 1px solid var(--line);
+}
+
+/* Smooth swap between themes, but never on first paint */
+.theme-anim,
+.theme-anim *,
+.theme-anim *::before,
+.theme-anim *::after {
+  transition: background-color 400ms ease, color 400ms ease, border-color 400ms ease, fill 400ms ease, stroke 400ms ease !important;
+}
+
+/* ---------- Theme toggle ---------- */
+
+.theme-toggle {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: inline-grid;
+  place-items: center;
+  margin: 0 -10px 0 -4px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--fg);
+  cursor: pointer;
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  overflow: visible;
+  transition: transform 500ms var(--ease-out);
+}
+
+.theme-toggle:active svg {
+  transform: scale(0.9);
+}
+
+.theme-toggle .tt-sun,
+.theme-toggle .tt-moon {
+  transition: opacity 300ms ease, transform 500ms var(--ease-out);
+  transform-origin: 12px 12px;
+}
+
+.theme-toggle .tt-moon {
+  opacity: 0;
+  transform: rotate(-60deg) scale(0.6);
+}
+
+:root[data-theme="dark"] .theme-toggle .tt-sun {
+  opacity: 0;
+  transform: rotate(60deg) scale(0.6);
+}
+
+:root[data-theme="dark"] .theme-toggle .tt-moon {
+  opacity: 1;
+  transform: none;
+}
+
+:root[data-theme="dark"] .about__art {
+  outline: 1px solid var(--line);
+}
+
+/* Project artworks keep their own fixed colors in both themes */
+.world-codes,
+.world-sari,
+.world-ade {
+  color: var(--ink);
 }
