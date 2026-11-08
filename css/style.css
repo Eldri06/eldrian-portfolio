@@ -295,13 +295,12 @@ main {
   margin: 0 0.55em 0.12em;
   vertical-align: middle;
   background: var(--acid);
-  transform: rotateX(-24deg) rotateY(38deg) rotate(0deg);
-  animation: sep-spin 6s linear infinite;
+  animation: sep-spin 8s linear infinite;
 }
 
 @keyframes sep-spin {
-  from { transform: perspective(40px) rotateY(0deg); }
-  to { transform: perspective(40px) rotateY(360deg); }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .marquee:hover .marquee__track {
@@ -1455,39 +1454,35 @@ html.lenis body {
 }
 
 .logo-mark {
-  position: relative;
   flex: 0 0 auto;
-  width: 0.9em;
-  height: 0.9em;
-  transform-style: preserve-3d;
-  transform: rotateX(-24deg) rotateY(38deg);
+  width: 1.05em;
+  height: 1.05em;
+  overflow: visible;
+  stroke: var(--ink);
+  stroke-width: 1.4;
+  stroke-linejoin: round;
   transition: transform 600ms var(--ease-out);
 }
 
-.logo-mark::before,
-.logo-mark::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--acid);
-  outline: 1.5px solid var(--ink);
-  outline-offset: -1.5px;
-}
-
-.logo-mark::before {
-  transform: translateZ(0.45em);
-}
-
-.logo-mark::after {
-  background: var(--ink);
-  transform: rotateY(90deg) translateZ(0.45em);
-}
+.logo-mark .lm-top { fill: var(--acid); }
+.logo-mark .lm-left { fill: var(--chalk); }
+.logo-mark .lm-right { fill: var(--ink); }
 
 .wordmark:hover .logo-mark {
-  transform: rotateX(-24deg) rotateY(218deg);
+  transform: rotate(-120deg);
 }
 
-.preloader .logo-mark::after,
-.world-self__mark .logo-mark::after {
-  background: var(--chalk);
+.preloader .logo-mark,
+.world-self__mark .logo-mark {
+  stroke: var(--chalk);
+}
+
+.preloader .logo-mark .lm-left,
+.world-self__mark .logo-mark .lm-left {
+  fill: var(--ink);
+}
+
+.preloader .logo-mark .lm-right,
+.world-self__mark .logo-mark .lm-right {
+  fill: var(--muted-on-ink);
 }
