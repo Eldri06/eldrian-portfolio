@@ -719,8 +719,15 @@ main {
 /* ---------- Footer ---------- */
 
 .footer {
+  position: relative;
+  overflow: hidden;
   background: var(--ink);
   color: var(--chalk);
+}
+
+.footer__inner {
+  position: relative;
+  z-index: 1;
 }
 
 .footer__inner {
@@ -1236,4 +1243,30 @@ html.lenis body {
   .hero__globe {
     display: none;
   }
+}
+
+/* ---------- 3D terrain (footer) ---------- */
+
+.footer__terrain {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease-out);
+  /* fade the lines out under the link columns so text stays easy to read */
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 45%, rgba(0, 0, 0, 0.25) 75%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 45%, rgba(0, 0, 0, 0.25) 75%, transparent 100%);
+}
+
+.footer__terrain.is-live {
+  opacity: 1;
+}
+
+.footer__terrain canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
 }
