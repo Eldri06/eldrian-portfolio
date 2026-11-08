@@ -10,6 +10,7 @@ Chalk white, ink black and one hit of acid green, with a few 3D pieces along the
 - Interactive 3D globe in the hero with real continents, flight arcs and an orbiting satellite (drag to spin)
 - Sideways project gallery that pins while you scroll, with cards that tilt toward the mouse
 - 3D cube sculpture in the About section (hover a cube, click to reshuffle)
+- Certificates and awards, four per page, with cards that flip in 3D to show the certificate
 - Wireframe landscape in the footer that ripples under the mouse
 - Light and dark mode that follows your system setting
 - Custom cursor, magnetic links and a live Philippine clock
@@ -40,3 +41,4 @@ Then open http://localhost:8000. The 3D scenes need a local server, so opening `
 ## Credits
 
 Design inspired by [Akshay's portfolio](https://github.com/akshay-th/akshay-folio).
+Certificates layout inspired by [Samy Barsoum's portfolio](https://github.com/samybit/portfolio).
