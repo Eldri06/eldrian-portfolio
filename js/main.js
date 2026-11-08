@@ -85,6 +85,14 @@
     requestAnimationFrame(step);
   }
 
+  /* ---------- Header: blur once the page scrolls ---------- */
+  var header = document.querySelector(".header");
+  function onScrollHeader() {
+    if (header) header.classList.toggle("is-scrolled", window.scrollY > 8);
+  }
+  onScrollHeader();
+  window.addEventListener("scroll", onScrollHeader, { passive: true });
+
   /* ---------- Custom cursor (fine pointers only) ---------- */
   var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
   var cursor = document.querySelector(".cursor");

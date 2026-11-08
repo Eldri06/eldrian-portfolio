@@ -109,13 +109,24 @@ a {
 /* ---------- Header ---------- */
 
 .header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
-  background: rgba(241, 240, 235, 0.86);
+  background: rgba(241, 240, 235, 0);
   border-bottom: 1px solid var(--line);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  transition: background-color 300ms ease, backdrop-filter 300ms ease;
+}
+
+.header.is-scrolled {
+  background: rgba(241, 240, 235, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+main {
+  padding-top: 64px;
 }
 
 .header__inner {
@@ -232,6 +243,10 @@ a {
 
 .hero__meta span + span {
   color: var(--muted);
+}
+
+.hero__hint {
+  margin-left: auto;
 }
 
 .hero__status {
@@ -846,6 +861,10 @@ a {
     gap: 10px;
   }
 
+  .hero__hint {
+    display: none;
+  }
+
   .work {
     padding: 64px 0 72px;
   }
@@ -1073,4 +1092,16 @@ a {
 [data-magnetic] {
   display: inline-block;
   will-change: transform;
+}
+
+/* ---------- Grain ---------- */
+
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.07  0 0 0 0 0.07  0 0 0 0 0.07  0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='128' height='128' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
 }
