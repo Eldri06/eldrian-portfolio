@@ -1,22 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" width="1280" height="800">
-  <title>SariSariStories screenshot placeholder</title>
-  <defs>
-    <pattern id="h" width="22" height="22" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <rect width="22" height="22" fill="#F1F0EB"/>
-      <rect width="2" height="22" fill="#121211" opacity="0.07"/>
-    </pattern>
-  </defs>
-  <rect x="1.5" y="1.5" width="1277" height="797" fill="#F1F0EB" stroke="#121211" stroke-width="3"/>
+  <title>SariSariStories cover: deadpan cartoon capybara meme</title>
+  <rect x="1.5" y="1.5" width="1277" height="797" fill="#E7E6E0" stroke="#121211" stroke-width="3"/>
   <rect x="3" y="3" width="1274" height="58" fill="#E7E6E0"/>
   <line x1="0" y1="61" x2="1280" y2="61" stroke="#121211" stroke-width="3"/>
   <circle cx="36" cy="32" r="8" fill="none" stroke="#121211" stroke-width="2.5"/>
   <circle cx="62" cy="32" r="8" fill="none" stroke="#121211" stroke-width="2.5"/>
   <circle cx="88" cy="32" r="8" fill="#C8FF00" stroke="#121211" stroke-width="2.5"/>
   <rect x="360" y="16" width="560" height="32" fill="#F1F0EB" stroke="#121211" stroke-width="2"/>
-  <text x="640" y="38" text-anchor="middle" font-family="Menlo, Consolas, monospace" font-size="16" fill="#5E5C56">sarisaristories.ph</text>
-  <rect x="3" y="62" width="1274" height="735" fill="url(#h)"/>
-  <text x="640" y="400" text-anchor="middle" font-family="Helvetica Neue, Arial, sans-serif" font-weight="900" font-size="88" letter-spacing="-3" fill="#121211">SARISARISTORIES</text>
-  <rect x="512" y="440" width="256" height="48" fill="#C8FF00" stroke="#121211" stroke-width="2.5"/>
-  <text x="640" y="472" text-anchor="middle" font-family="Menlo, Consolas, monospace" font-weight="700" font-size="20" letter-spacing="3" fill="#121211">IN PROGRESS</text>
-  <text x="640" y="540" text-anchor="middle" font-family="Menlo, Consolas, monospace" font-size="18" fill="#5E5C56">Screenshot coming soon</text>
+  <text x="640" y="38" text-anchor="middle" font-family="Menlo, Consolas, monospace" font-size="16" fill="#5E5C56">sarisaristories.app</text>
+  <g stroke="#121211" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 26)">
+
+    <ellipse cx="490" cy="250" rx="40" ry="34" fill="#9A6B43"/><ellipse cx="790" cy="250" rx="40" ry="34" fill="#9A6B43"/>
+    <path d="M440 300 q0 -90 200 -95 q200 5 200 95 l20 230 q-10 120 -220 125 q-210 -5 -220 -125 z" fill="#B98B5E"/>
+    <path d="M500 380 h80 M700 380 h80" stroke-width="10"/>
+    <path d="M500 368 q40 -14 80 0 M700 368 q40 -14 80 0" fill="none" stroke-width="5"/>
+    <path d="M540 470 q100 -40 200 0 q30 110 -100 130 q-130 -20 -100 -130 z" fill="#9A6B43"/>
+    <ellipse cx="600" cy="500" rx="16" ry="10" fill="#121211"/><ellipse cx="680" cy="500" rx="16" ry="10" fill="#121211"/>
+    <path d="M610 560 h60" stroke-width="6"/>
+    <g transform="translate(640 205) rotate(-8)"><ellipse rx="70" ry="22" fill="#C8FF00"/><path d="M0 -22 v-34" stroke-width="6"/><ellipse cy="-62" rx="16" ry="12" fill="#2F7D3A" stroke-width="5"/></g>
+
+  </g>
+  <text x="640" y="150" text-anchor="middle" font-family="Impact, 'Anton', 'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" font-size="64" letter-spacing="1" fill="#FFFFFF" stroke="#121211" stroke-width="10" stroke-linejoin="round" paint-order="stroke">SARI-SARI STORE CHISMIS</text>
+  <text x="640" y="760" text-anchor="middle" font-family="Impact, 'Anton', 'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" font-size="64" letter-spacing="1" fill="#FFFFFF" stroke="#121211" stroke-width="10" stroke-linejoin="round" paint-order="stroke">HITS DIFFERENT</text>
 </svg>

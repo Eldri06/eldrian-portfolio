@@ -1,12 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" width="1280" height="800">
-  <title>CoDeSMerchF screenshot placeholder</title>
-  <defs>
-    <pattern id="h" width="22" height="22" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <rect width="22" height="22" fill="#F1F0EB"/>
-      <rect width="2" height="22" fill="#121211" opacity="0.07"/>
-    </pattern>
-  </defs>
-  <rect x="1.5" y="1.5" width="1277" height="797" fill="#F1F0EB" stroke="#121211" stroke-width="3"/>
+  <title>CoDeSMerchF cover: side-eye cartoon dog meme</title>
+  <rect x="1.5" y="1.5" width="1277" height="797" fill="#EFE9DF" stroke="#121211" stroke-width="3"/>
   <rect x="3" y="3" width="1274" height="58" fill="#E7E6E0"/>
   <line x1="0" y1="61" x2="1280" y2="61" stroke="#121211" stroke-width="3"/>
   <circle cx="36" cy="32" r="8" fill="none" stroke="#121211" stroke-width="2.5"/>
@@ -14,9 +8,20 @@
   <circle cx="88" cy="32" r="8" fill="#C8FF00" stroke="#121211" stroke-width="2.5"/>
   <rect x="360" y="16" width="560" height="32" fill="#F1F0EB" stroke="#121211" stroke-width="2"/>
   <text x="640" y="38" text-anchor="middle" font-family="Menlo, Consolas, monospace" font-size="16" fill="#5E5C56">codesmerchf.app</text>
-  <rect x="3" y="62" width="1274" height="735" fill="url(#h)"/>
-  <text x="640" y="400" text-anchor="middle" font-family="Helvetica Neue, Arial, sans-serif" font-weight="900" font-size="88" letter-spacing="-3" fill="#121211">CODESMERCHF</text>
-  <rect x="512" y="440" width="256" height="48" fill="#C8FF00" stroke="#121211" stroke-width="2.5"/>
-  <text x="640" y="472" text-anchor="middle" font-family="Menlo, Consolas, monospace" font-weight="700" font-size="20" letter-spacing="3" fill="#121211">IN PROGRESS</text>
-  <text x="640" y="540" text-anchor="middle" font-family="Menlo, Consolas, monospace" font-size="18" fill="#5E5C56">Screenshot coming soon</text>
+  <g stroke="#121211" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 0)">
+
+    <path d="M430 280 q-90 40 -60 230 q30 40 90 -10 q20 -120 20 -200 z" fill="#8A5A2B"/>
+    <path d="M850 280 q90 40 60 230 q-30 40 -90 -10 q-20 -120 -20 -200 z" fill="#8A5A2B"/>
+    <path d="M440 330 q0 -130 200 -135 q200 5 200 135 q10 220 -200 270 q-210 -50 -200 -270 z" fill="#D9A86C"/>
+    <path d="M560 470 q80 -60 160 0 q20 120 -80 140 q-100 -20 -80 -140 z" fill="#F4E3C8"/>
+    <ellipse cx="545" cy="390" rx="58" ry="40" fill="#FFFFFF"/><ellipse cx="735" cy="390" rx="58" ry="40" fill="#FFFFFF"/>
+    <circle cx="580" cy="392" r="20" fill="#121211"/><circle cx="770" cy="392" r="20" fill="#121211"/>
+    <path d="M488 384 q57 -28 116 0" fill="#D9A86C" stroke-width="6"/><path d="M678 384 q57 -28 116 0" fill="#D9A86C" stroke-width="6"/>
+    <path d="M490 330 l110 -20 M690 300 l105 -5" stroke-width="9"/>
+    <ellipse cx="640" cy="485" rx="42" ry="28" fill="#121211"/>
+    <path d="M640 513 v30 M595 560 q45 10 90 -8" fill="none" stroke-width="6"/>
+
+  </g>
+  <text x="640" y="150" text-anchor="middle" font-family="Impact, 'Anton', 'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" font-size="64" letter-spacing="1" fill="#FFFFFF" stroke="#121211" stroke-width="10" stroke-linejoin="round" paint-order="stroke">THE SYSTEM: 50 IN STOCK</text>
+  <text x="640" y="760" text-anchor="middle" font-family="Impact, 'Anton', 'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" font-size="64" letter-spacing="1" fill="#FFFFFF" stroke="#121211" stroke-width="10" stroke-linejoin="round" paint-order="stroke">THE SHELF: 3</text>
 </svg>

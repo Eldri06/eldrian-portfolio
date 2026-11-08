@@ -1,12 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" width="1280" height="800">
-  <title>DenGuard screenshot placeholder</title>
-  <defs>
-    <pattern id="h" width="22" height="22" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <rect width="22" height="22" fill="#F1F0EB"/>
-      <rect width="2" height="22" fill="#121211" opacity="0.07"/>
-    </pattern>
-  </defs>
-  <rect x="1.5" y="1.5" width="1277" height="797" fill="#F1F0EB" stroke="#121211" stroke-width="3"/>
+  <title>DenGuard cover: shocked cartoon cat meme</title>
+  <rect x="1.5" y="1.5" width="1277" height="797" fill="#E7E6E0" stroke="#121211" stroke-width="3"/>
   <rect x="3" y="3" width="1274" height="58" fill="#E7E6E0"/>
   <line x1="0" y1="61" x2="1280" y2="61" stroke="#121211" stroke-width="3"/>
   <circle cx="36" cy="32" r="8" fill="none" stroke="#121211" stroke-width="2.5"/>
@@ -14,9 +8,21 @@
   <circle cx="88" cy="32" r="8" fill="#C8FF00" stroke="#121211" stroke-width="2.5"/>
   <rect x="360" y="16" width="560" height="32" fill="#F1F0EB" stroke="#121211" stroke-width="2"/>
   <text x="640" y="38" text-anchor="middle" font-family="Menlo, Consolas, monospace" font-size="16" fill="#5E5C56">denguard.app</text>
-  <rect x="3" y="62" width="1274" height="735" fill="url(#h)"/>
-  <text x="640" y="400" text-anchor="middle" font-family="Helvetica Neue, Arial, sans-serif" font-weight="900" font-size="88" letter-spacing="-3" fill="#121211">DENGUARD</text>
-  <rect x="512" y="440" width="256" height="48" fill="#C8FF00" stroke="#121211" stroke-width="2.5"/>
-  <text x="640" y="472" text-anchor="middle" font-family="Menlo, Consolas, monospace" font-weight="700" font-size="20" letter-spacing="3" fill="#121211">IN PROGRESS</text>
-  <text x="640" y="540" text-anchor="middle" font-family="Menlo, Consolas, monospace" font-size="18" fill="#5E5C56">Screenshot coming soon</text>
+  <g stroke="#121211" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 0)">
+
+    <path d="M430 330 L455 170 L560 255 Z" fill="#F7F5EF"/><path d="M455 205 L470 290 L530 262 Z" fill="#C8FF00" stroke-width="5"/>
+    <path d="M850 330 L825 170 L720 255 Z" fill="#F7F5EF"/><path d="M825 205 L810 290 L750 262 Z" fill="#C8FF00" stroke-width="5"/>
+    <ellipse cx="640" cy="440" rx="250" ry="215" fill="#F7F5EF"/>
+    <path d="M520 270 q20 -30 40 0 M610 250 q30 -35 60 0 M720 270 q20 -30 40 0" fill="none" stroke-width="6"/>
+    <circle cx="545" cy="415" r="72" fill="#FFFFFF"/><circle cx="735" cy="415" r="72" fill="#FFFFFF"/>
+    <circle cx="545" cy="415" r="16" fill="#121211"/><circle cx="735" cy="415" r="16" fill="#121211"/>
+    <path d="M470 340 q75 -40 140 10 M670 350 q65 -50 140 -10" fill="none" stroke-width="8"/>
+    <path d="M625 505 l15 15 l15 -15 z" fill="#F4A6A6" stroke-width="5"/>
+    <ellipse cx="640" cy="575" rx="34" ry="44" fill="#121211"/>
+    <path d="M470 520 l-150 -25 M470 545 l-150 10 M810 520 l150 -25 M810 545 l150 10" stroke-width="4"/>
+    <path d="M915 300 l20 -60 M950 330 l45 -40 M965 375 l55 -15" stroke-width="7"/>
+
+  </g>
+  <text x="640" y="150" text-anchor="middle" font-family="Impact, 'Anton', 'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" font-size="64" letter-spacing="1" fill="#FFFFFF" stroke="#121211" stroke-width="10" stroke-linejoin="round" paint-order="stroke">WHEN THE MOSQUITO</text>
+  <text x="640" y="760" text-anchor="middle" font-family="Impact, 'Anton', 'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" font-size="64" letter-spacing="1" fill="#FFFFFF" stroke="#121211" stroke-width="10" stroke-linejoin="round" paint-order="stroke">SAYS 'JUST ONE BITE'</text>
 </svg>
