@@ -38,6 +38,3 @@ Then open http://localhost:8000. The 3D scenes need a local server, so opening `
 - Respects reduced-motion settings: animations, 3D and scroll effects turn off
 - 3D runs lighter on phones and pauses when it scrolls off screen
 
-## Credits
-
-Design inspired by [Akshay's portfolio](https://github.com/akshay-th/akshay-folio).
