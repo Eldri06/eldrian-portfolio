@@ -146,11 +146,16 @@ function dotMaterial(THREE, renderer, opts) {
 }
 
 async function initGlobe(THREE, host) {
+  // Land dots. The version tag stops browsers (Safari especially) from
+  // reusing an old cached copy; if that fails, try the plain path.
   let LAND = [];
-  try {
-    LAND = (await import("./land.js")).default;
-  } catch (e) {
-    /* no land data: globe still shows as a dotted sphere */
+  for (const path of ["./land.js?v=20261109", "./land.js"]) {
+    try {
+      LAND = (await import(path)).default || [];
+      if (LAND.length) break;
+    } catch (e) {
+      console.warn("Globe: could not load land dots from " + path, e);
+    }
   }
 
   const renderer = makeRenderer(THREE, host);
